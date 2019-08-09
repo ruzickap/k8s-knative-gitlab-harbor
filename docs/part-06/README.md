@@ -22,10 +22,11 @@ kubectl apply --selector networking.knative.dev/certificate-provider!=cert-manag
 #kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/v0.7.1/github.yaml
 ```
 
-Install Tekton:
+Install Tekton with Dashboard:
 
 ```bash
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/latest/release.yaml
+kubectl apply --filename https://github.com/tektoncd/dashboard/releases/download/v0.1.0/release.yaml
 ```
 
 Export Knative services ([Prometheus](https://prometheus.io/) and
@@ -49,6 +50,7 @@ spec:
     hosts:
     - grafana.${MY_DOMAIN}
     - prometheus.${MY_DOMAIN}
+    - tekton.${MY_DOMAIN}
   - port:
       number: 443
       name: https-knative-services
@@ -56,6 +58,7 @@ spec:
     hosts:
     - grafana.${MY_DOMAIN}
     - prometheus.${MY_DOMAIN}
+    - tekton.${MY_DOMAIN}
     tls:
       credentialName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
       mode: SIMPLE
@@ -95,6 +98,23 @@ spec:
         host: prometheus-system-np.knative-monitoring.svc.cluster.local
         port:
           number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tekton-virtual-service
+  namespace: knative-monitoring
+spec:
+  hosts:
+  - "tekton.${MY_DOMAIN}"
+  gateways:
+  - knative-services-gateway
+  http:
+  - route:
+    - destination:
+        host: tekton-dashboard.tekton-pipelines.svc.cluster.local
+        port:
+          number: 9097
 EOF
 ```
 
