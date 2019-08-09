@@ -42,3 +42,11 @@ Output:
 
 ```text
 ```
+
+```bash
+helm install stable/kube2iam --name kube2iam --namespace=kube-system --set host.iptables=true --set rbac.create=true
+```
+
+```bash
+helm install stable/metrics-server --name metrics-server --namespace metrics --version 2.8.2
+```
