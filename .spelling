@@ -12,6 +12,7 @@ k8s
 Kiali
 Knative
 kops
+kube2iam
 kubectl
 kubed
 Kubernetes

@@ -48,17 +48,17 @@ spec:
       name: http-knative-services
       protocol: HTTP2
     hosts:
-    - grafana.${MY_DOMAIN}
-    - prometheus.${MY_DOMAIN}
-    - tekton.${MY_DOMAIN}
+    - knative-grafana.${MY_DOMAIN}
+    - knative-prometheus.${MY_DOMAIN}
+    - knative-tekton.${MY_DOMAIN}
   - port:
       number: 443
       name: https-knative-services
       protocol: HTTPS
     hosts:
-    - grafana.${MY_DOMAIN}
-    - prometheus.${MY_DOMAIN}
-    - tekton.${MY_DOMAIN}
+    - knative-grafana.${MY_DOMAIN}
+    - knative-prometheus.${MY_DOMAIN}
+    - knative-tekton.${MY_DOMAIN}
     tls:
       credentialName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
       mode: SIMPLE
@@ -72,7 +72,7 @@ metadata:
   namespace: knative-monitoring
 spec:
   hosts:
-  - "grafana.${MY_DOMAIN}"
+  - "knative-grafana.${MY_DOMAIN}"
   gateways:
   - knative-services-gateway
   http:
@@ -89,7 +89,7 @@ metadata:
   namespace: knative-monitoring
 spec:
   hosts:
-  - "prometheus.${MY_DOMAIN}"
+  - "knative-prometheus.${MY_DOMAIN}"
   gateways:
   - knative-services-gateway
   http:
@@ -106,7 +106,7 @@ metadata:
   namespace: knative-monitoring
 spec:
   hosts:
-  - "tekton.${MY_DOMAIN}"
+  - "knative-tekton.${MY_DOMAIN}"
   gateways:
   - knative-services-gateway
   http:
