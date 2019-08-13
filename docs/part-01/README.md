@@ -27,9 +27,10 @@ installed.
 Install necessary software:
 
 ```bash
-test -x /usr/bin/apt && \
-apt update -qq && \
-DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl git jq openssh-client sudo wget > /dev/null
+if [ -x /usr/bin/apt ]; then
+  apt update -qq
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl git jq openssh-client sudo wget > /dev/null
+fi
 ```
 
 Install [kubectl](https://github.com/kubernetes/kubectl) binary:
@@ -137,7 +138,9 @@ test -f $HOME/.ssh/id_rsa || ( install -m 0700 -d $HOME/.ssh && ssh-keygen -b 20
 Clone the `k8s-knative-gitlab-harbor` Git repository if it wasn't done already:
 
 ```bash
-[ ! -d .git ] && git clone --quiet https://github.com/ruzickap/k8s-k8s-knative-gitlab-harbor && cd k8s-knative-gitlab-harbor
+if [ ! -d .git ]; then
+  git clone --quiet https://github.com/ruzickap/k8s-k8s-knative-gitlab-harbor && cd k8s-knative-gitlab-harbor
+fi
 ```
 
 Create S3 bucket where the kops will store cluster status:
@@ -163,12 +166,18 @@ kops create cluster \
   --cloud-labels "Owner=${USER},Environment=Test,Division=Services" \
   --ssh-public-key $HOME/.ssh/id_rsa.pub \
   --yes
-sleep 300
 ```
 
 Output:
 
 ```text
+```
+
+Wait for cluster to be up and running:
+
+```bash
+sleep 200
+while `kops validate cluster --state=s3://${USER}-kops-k8s -o yaml 2>&1 | grep -q failures`; do sleep 5; echo -n .; done
 ```
 
 Store `kubeconfig` in current directory:

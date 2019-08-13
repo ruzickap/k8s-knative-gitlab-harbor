@@ -225,7 +225,7 @@ ssh-keygen -t ed25519 -f tmp/id_rsa_gitlab -q -N ""
 Add ssh key to the `myuser`:
 
 ```bash
-curl -k -X POST -F "private_token=${GILAB_MYUSER_TOKEN}" https://gitlab.${MY_DOMAIN}/api/v4/user/keys -F "title=my_ssh_key" -F "key=$(cat tmp/id_rsa_gitlab.pub)"
+curl -k -X POST -F "private_token=${GILAB_MYUSER_TOKEN}" https://gitlab.${MY_DOMAIN}/api/v4/user/keys -F "title=my_ssh_key" -F "key=$(cat tmp/id_rsa_gitlab.pub)" | jq
 ```
 
 Create new project:
@@ -243,7 +243,6 @@ PROJECT_ID=$(curl -s -k -X POST -H "Content-type: application/json" -H "PRIVATE-
   \"container-registry-enabled\": false,
   \"visibility\": \"public\"
 }" | jq -r ".id")
-echo ${PROJECT_ID}
 ```
 
 Clone the [podinfo](https://github.com/stefanprodan/podinfo) project and push
