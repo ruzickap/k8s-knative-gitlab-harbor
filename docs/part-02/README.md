@@ -43,7 +43,7 @@ Output:
 ```text
 ```
 
-Add kube2iam:
+Install kube2iam to restrict pod's access:
 
 ```bash
 helm install stable/kube2iam --name kube2iam --namespace=kube-system \
