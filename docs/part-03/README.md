@@ -42,6 +42,7 @@ Install the cert-manager Helm chart:
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io
+helm repo update
 helm install --name cert-manager --namespace cert-manager --wait jetstack/cert-manager --version v0.9.0
 ```
 
@@ -176,6 +177,7 @@ Add kubed helm repository:
 
 ```bash
 helm repo add appscode https://charts.appscode.com/stable/
+helm repo update
 ```
 
 Output:
@@ -213,13 +215,14 @@ Output:
 Add Istio helm chart repository:
 
 ```bash
-helm repo add istio.io https://storage.googleapis.com/istio-release/releases/1.2.2/charts/
+helm repo add istio.io https://storage.googleapis.com/istio-release/releases/1.2.4/charts/
+helm repo update
 ```
 
 Install CRDs for Istio:
 
 ```bash
-helm install istio.io/istio-init --wait --name istio-init --namespace istio-system --version 1.2.2
+helm install istio.io/istio-init --wait --name istio-init --namespace istio-system --version 1.2.4
 sleep 25
 ```
 
@@ -235,7 +238,7 @@ Install Istio:
 (steps take from [Knative page](https://github.com/knative/docs/blob/master/docs/install/installing-istio.md#installing-istio-with-SDS-to-secure-the-ingress-gateway))
 
 ```bash
-helm install istio.io/istio --wait --name istio --namespace istio-system --version 1.2.2 \
+helm install istio.io/istio --wait --name istio --namespace istio-system --version 1.2.4 \
   --set global.k8sIngress.enabled=true \
   --set global.k8sIngress.enableHttps=true \
   --set kiali.enabled=true \
