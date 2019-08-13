@@ -174,7 +174,7 @@ if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
   sudo cp tmp/ca.crt /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt
   # export SSL_CERT_FILE=$PWD/tmp/ca.crt
   for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do
-    ssh -q -o StrictHostKeyChecking=no -l ec2-user ${EXTERNAL_IP} \
+    ssh -o StrictHostKeyChecking=no -l admin ${EXTERNAL_IP} \
       "sudo mkdir -p /etc/docker/certs.d/harbor.${MY_DOMAIN}/ && sudo wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt"
   done
   echo "*** Done"
