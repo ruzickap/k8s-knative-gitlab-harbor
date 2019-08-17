@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 ################################################
 # include the magic
 ################################################
@@ -13,13 +15,13 @@ test -s ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxto
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=60
+TYPE_SPEED=600
 
 # Uncomment to run non-interactively
 export PROMPT_TIMEOUT=0
 
 # No wait
-export NO_WAIT=false
+export NO_WAIT=true
 
 #
 # custom prompt

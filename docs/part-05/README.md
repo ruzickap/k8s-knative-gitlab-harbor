@@ -4,6 +4,7 @@ Add GitLab repository:
 
 ```bash
 helm repo add gitlab https://charts.gitlab.io/
+helm repo update
 ```
 
 Create `gitlab-system` namespaces with secrets needed for GitLab
@@ -12,8 +13,7 @@ Create `gitlab-system` namespaces with secrets needed for GitLab
 ```bash
 kubectl create namespace gitlab-system
 kubectl create secret generic gitlab-initial-root-password --from-literal=password="admin123" -n gitlab-system
-wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O /tmp/fakelerootx1.pem
-kubectl create secret generic custom-ca --from-file=unique_name=/tmp/fakelerootx1.pem -n gitlab-system
+kubectl create secret generic custom-ca --from-file=unique_name=tmp/fakelerootx1.pem -n gitlab-system
 ```
 
 Create Istio Gateways and VirtualServices to allow accessing GitLab from
@@ -39,7 +39,7 @@ spec:
   - port:
       number: 80
       name: http-gitlab
-      protocol: HTTP2
+      protocol: HTTP
     hosts:
     - gitlab.${MY_DOMAIN}
     - minio.${MY_DOMAIN}

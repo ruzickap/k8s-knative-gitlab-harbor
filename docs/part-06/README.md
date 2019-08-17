@@ -4,22 +4,17 @@ Knative installation...
 
 ```bash
 kubectl apply --selector knative.dev/crd-install=true \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml \
-   --filename https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/monitoring.yaml
+   --filename https://github.com/knative/serving/releases/download/v0.8.0/serving.yaml \
+   --filename https://github.com/knative/eventing/releases/download/v0.8.0/eventing.yaml \
+   --filename https://github.com/knative/serving/releases/download/v0.8.0/monitoring.yaml
 
-echo "*** Run again - bug https://github.com/knative/docs/issues/817"
-kubectl apply --selector knative.dev/crd-install=true \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml \
-   --filename https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/monitoring.yaml
+kubectl apply \
+   --filename https://github.com/knative/serving/releases/download/v0.8.0/serving.yaml \
+   --filename https://github.com/knative/eventing/releases/download/v0.8.0/eventing.yaml \
+   --filename https://github.com/knative/serving/releases/download/v0.8.0/monitoring.yaml
 
-kubectl apply --selector networking.knative.dev/certificate-provider!=cert-manager \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml \
-   --filename https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml \
-   --filename https://github.com/knative/serving/releases/download/v0.7.1/monitoring.yaml
-
-#kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/v0.7.1/github.yaml
+#kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/v0.8.0/github.yaml
+sleep 60
 ```
 
 Install Tekton with Dashboard:
@@ -46,7 +41,7 @@ spec:
   - port:
       number: 80
       name: http-knative-services
-      protocol: HTTP2
+      protocol: HTTP
     hosts:
     - knative-grafana.${MY_DOMAIN}
     - knative-prometheus.${MY_DOMAIN}
@@ -128,9 +123,6 @@ metadata:
   name: config-domain
   namespace: knative-serving
 data:
-  ${MY_DOMAIN}: |
-    selector:
-      app: prod
   ${MY_DOMAIN}: ""
 EOF
 ```
@@ -140,8 +132,7 @@ EOF
 Install `networking-certmanager`:
 
 ```bash
-kubectl apply --selector networking.knative.dev/certificate-provider=cert-manager \
-  --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/v0.8.0/serving-cert-manager.yaml
 ```
 
 Update your `config-certmanager` ConfigMap in the `knative-serving` namespace to
@@ -178,5 +169,6 @@ metadata:
   namespace: knative-serving
 data:
   autoTLS: Enabled
+  httpProtocol: Enabled
 EOF
 ```

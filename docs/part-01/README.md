@@ -146,7 +146,7 @@ fi
 Create S3 bucket where the kops will store cluster status:
 
 ```bash
-aws s3api create-bucket --bucket ${USER}-kops-k8s --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1
+aws s3api create-bucket --bucket ${USER}-kops-k8s --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1 | jq
 ```
 
 Create Kubernetes cluster in AWS by using [kops](https://github.com/kubernetes/kops):
@@ -178,6 +178,7 @@ Wait for cluster to be up and running:
 ```bash
 sleep 200
 while `kops validate cluster --state=s3://${USER}-kops-k8s -o yaml 2>&1 | grep -q failures`; do sleep 5; echo -n .; done
+echo
 ```
 
 Store `kubeconfig` in current directory:
@@ -196,4 +197,18 @@ kubectl get nodes -o wide
 Output:
 
 ```text
+```
+
+```bash
+test -d tmp || mkdir tmp
+if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
+  wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O tmp/fakelerootx1.pem
+  sudo mkdir -pv /etc/docker/certs.d/harbor.${MY_DOMAIN}/
+  sudo cp tmp/fakelerootx1.pem /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt
+  for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do
+    ssh -q -o StrictHostKeyChecking=no -l admin ${EXTERNAL_IP} \
+      "sudo mkdir -p /etc/docker/certs.d/harbor.${MY_DOMAIN}/ && sudo wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt"
+  done
+  echo "*** Done"
+fi
 ```

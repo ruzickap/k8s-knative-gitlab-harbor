@@ -1,4 +1,4 @@
-# Istio + cert-manager + kubed installation
+# Istio + Knative + cert-manager + kubed installation
 
 Before we move on with other tasks it is necessary to install Nginx Ingress.
 It's also handy to install cert-manager for managing SSL certificates.
@@ -43,7 +43,7 @@ Install the cert-manager Helm chart:
 ```bash
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-helm install --name cert-manager --namespace cert-manager --wait jetstack/cert-manager --version v0.9.0
+helm install --name cert-manager --namespace cert-manager --wait jetstack/cert-manager --version v0.9.1
 ```
 
 Output:
@@ -215,14 +215,15 @@ Output:
 Add Istio helm chart repository:
 
 ```bash
-helm repo add istio.io https://storage.googleapis.com/istio-release/releases/1.2.4/charts/
+export ISTIO_VERSION="1.2.4"
+helm repo add istio.io https://storage.googleapis.com/istio-release/releases/${ISTIO_VERSION}/charts/
 helm repo update
 ```
 
 Install CRDs for Istio:
 
 ```bash
-helm install istio.io/istio-init --wait --name istio-init --namespace istio-system --version 1.2.4
+helm install istio.io/istio-init --wait --name istio-init --namespace istio-system --version ${ISTIO_VERSION}
 sleep 25
 ```
 
@@ -238,14 +239,37 @@ Install Istio:
 (steps take from [Knative page](https://github.com/knative/docs/blob/master/docs/install/installing-istio.md#installing-istio-with-SDS-to-secure-the-ingress-gateway))
 
 ```bash
-helm install istio.io/istio --wait --name istio --namespace istio-system --version 1.2.4 \
+helm install istio.io/istio --wait --name istio --namespace istio-system --version ${ISTIO_VERSION} \
+  --set gateways.istio-ingressgateway.ports[0].name=status-port \
+  --set gateways.istio-ingressgateway.ports[0].port=15020 \
+  --set gateways.istio-ingressgateway.ports[0].targetPort=15020 \
+  --set gateways.istio-ingressgateway.ports[1].name=http \
+  --set gateways.istio-ingressgateway.ports[1].port=80 \
+  --set gateways.istio-ingressgateway.ports[1].targetPort=80 \
+  --set gateways.istio-ingressgateway.ports[1].nodePort=31380 \
+  --set gateways.istio-ingressgateway.ports[2].name=https \
+  --set gateways.istio-ingressgateway.ports[2].port=443 \
+  --set gateways.istio-ingressgateway.ports[2].nodePort=31390 \
+  --set gateways.istio-ingressgateway.ports[3].name=ssh \
+  --set gateways.istio-ingressgateway.ports[3].port=22 \
+  --set gateways.istio-ingressgateway.ports[3].nodePort=31400 \
   --set global.k8sIngress.enabled=true \
   --set global.k8sIngress.enableHttps=true \
+  --set grafana.enabled=true \
+  --set grafana.datasources."datasources\.yaml".datasources[0].name=Prometheus \
+  --set grafana.datasources."datasources\.yaml".datasources[0].access=proxy \
+  --set grafana.datasources."datasources\.yaml".datasources[0].editable=true \
+  --set grafana.datasources."datasources\.yaml".datasources[0].isDefault=true \
+  --set grafana.datasources."datasources\.yaml".datasources[0].jsonData.timeInterval=5s \
+  --set grafana.datasources."datasources\.yaml".datasources[0].orgId=1 \
+  --set grafana.datasources."datasources\.yaml".datasources[0].type=prometheus \
+  --set grafana.datasources."datasources\.yaml".datasources[0].url=http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 \
   --set kiali.enabled=true \
   --set kiali.createDemoSecret=true \
   --set kiali.contextPath=/ \
   --set kiali.dashboard.grafanaURL=http://grafana.${MY_DOMAIN}/ \
   --set kiali.dashboard.jaegerURL=http://jaeger.${MY_DOMAIN}/ \
+  --set kiali.prometheusAddr=http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 \
   --set tracing.enabled=true \
   --set sidecarInjectorWebhook.enabled=true \
   --set sidecarInjectorWebhook.enableNamespacesByDefault=true \
@@ -257,29 +281,26 @@ helm install istio.io/istio --wait --name istio --namespace istio-system --versi
   --set gateways.istio-ingressgateway.autoscaleMin=1 \
   --set gateways.istio-ingressgateway.autoscaleMax=1 \
   --set gateways.istio-ingressgateway.sds.enabled=true \
-  --set gateways.istio-ingressgateway.ports[0].name=status-port \
-  --set gateways.istio-ingressgateway.ports[0].port=15020 \
-  --set gateways.istio-ingressgateway.ports[0].targetPort=15020 \
-  --set gateways.istio-ingressgateway.ports[1].name=http2 \
-  --set gateways.istio-ingressgateway.ports[1].port=80 \
-  --set gateways.istio-ingressgateway.ports[1].targetPort=80 \
-  --set gateways.istio-ingressgateway.ports[1].nodePort=31380 \
-  --set gateways.istio-ingressgateway.ports[2].name=https \
-  --set gateways.istio-ingressgateway.ports[2].port=443 \
-  --set gateways.istio-ingressgateway.ports[2].nodePort=31390 \
-  --set gateways.istio-ingressgateway.ports[3].name=ssh \
-  --set gateways.istio-ingressgateway.ports[3].port=22 \
-  --set gateways.istio-ingressgateway.ports[3].nodePort=31400 \
   --set pilot.traceSampling=100
 ```
 
 Let `istio-ingressgateway` to use cert-manager generated certificate via
-[SDS](https://www.envoyproxy.io/docs/envoy/latest/configuration/secret):
+[SDS](https://www.envoyproxy.io/docs/envoy/latest/configuration/secret). Steps
+are taken from here [https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/](https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/).
 
 ```bash
 kubectl -n istio-system patch gateway istio-autogenerated-k8s-ingress \
   --type=json \
   -p="[{"op": "replace", "path": "/spec/servers/1/tls", "value": {"credentialName": "ingress-cert-${LETSENCRYPT_ENVIRONMENT}", "mode": "SIMPLE", "privateKey": "sds", "serverCertificate": "sds"}}]"
+```
+
+Disable HTTP2 for gateway `istio-autogenerated-k8s-ingress` to be compatible
+with Knative:
+
+```bash
+kubectl -n istio-system patch gateway istio-autogenerated-k8s-ingress \
+  --type=json \
+  -p="[{"op": "replace", "path": "/spec/servers/0/port", "value": {"name": "http", "number": "80", "protocol": "HTTP"}}]"
 ```
 
 Allow the `default` namespace to use Istio injection:
@@ -305,17 +326,19 @@ spec:
   - port:
       number: 80
       name: http-istio-services
-      protocol: HTTP2
+      protocol: HTTP
     hosts:
-    - jaeger.${MY_DOMAIN}
-    - kiali.${MY_DOMAIN}
+    - grafana-istio.${MY_DOMAIN}
+    - jaeger-istio.${MY_DOMAIN}
+    - kiali-istio.${MY_DOMAIN}
   - port:
       number: 443
       name: https-istio-services
       protocol: HTTPS
     hosts:
-    - jaeger.${MY_DOMAIN}
-    - kiali.${MY_DOMAIN}
+    - grafana-istio.${MY_DOMAIN}
+    - jaeger-istio.${MY_DOMAIN}
+    - kiali-istio.${MY_DOMAIN}
     tls:
       credentialName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
       mode: SIMPLE
@@ -325,11 +348,28 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: jaeger-virtual-service
+  name: grafana-istio-virtual-service
   namespace: istio-system
 spec:
   hosts:
-  - jaeger.${MY_DOMAIN}
+  - grafana-istio.${MY_DOMAIN}
+  gateways:
+  - istio-services-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana.istio-system.svc.cluster.local
+        port:
+          number: 3000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jaeger-istio-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - jaeger-istio.${MY_DOMAIN}
   gateways:
   - istio-services-gateway
   http:
@@ -342,11 +382,11 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: kiali-virtual-service
+  name: kiali-istio-virtual-service
   namespace: istio-system
 spec:
   hosts:
-  - kiali.${MY_DOMAIN}
+  - kiali-istio.${MY_DOMAIN}
   gateways:
   - istio-services-gateway
   http:
@@ -370,7 +410,7 @@ helm install --wait --name external-dns --namespace external-dns --version 2.5.1
   --set aws.credentials.accessKey="${ROUTE53_AWS_ACCESS_KEY_ID}" \
   --set domainFilters={${MY_DOMAIN}} \
   --set policy="sync" \
-  --set sources={istio-gateway} \
+  --set sources="{istio-gateway,service}" \
   --set istioIngressGateways={istio-system/istio-ingressgateway} \
   --set txtOwnerId="${USER}-k8s.${MY_DOMAIN}" \
   --set rbac.create=true

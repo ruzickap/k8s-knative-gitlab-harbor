@@ -28,7 +28,7 @@ spec:
   - port:
       number: 80
       name: http-harbor
-      protocol: HTTP2
+      protocol: HTTP
     hosts:
     - harbor.${MY_DOMAIN}
   - port:
@@ -108,12 +108,13 @@ Add Harbor Helm repository:
 
 ```bash
 helm repo add harbor https://helm.goharbor.io
+helm repo update
 ```
 
 Install Harbor using Helm:
 
 ```bash
-helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.1.1 \
+helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.1.2 \
   --set expose.type=clusterIP \
   --set expose.tls.enabled=true \
   --set expose.tls.secretName=ingress-cert-${LETSENCRYPT_ENVIRONMENT} \
@@ -167,17 +168,8 @@ curl -s -k -u "admin:admin" -X PUT "https://harbor.${MY_DOMAIN}/api/projects/1" 
 Test Harbor functionality by uploading docker image (optional):
 
 ```shell
-test -d tmp || mkdir tmp
 if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
-  sudo mkdir -pv /etc/docker/certs.d/harbor.${MY_DOMAIN}/
-  wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O tmp/ca.crt
-  sudo cp tmp/ca.crt /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt
-  # export SSL_CERT_FILE=$PWD/tmp/ca.crt
-  for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do
-    ssh -o StrictHostKeyChecking=no -l admin ${EXTERNAL_IP} \
-      "sudo mkdir -p /etc/docker/certs.d/harbor.${MY_DOMAIN}/ && sudo wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt"
-  done
-  echo "*** Done"
+  export SSL_CERT_FILE=$PWD/tmp/fakelerootx1.pem
 fi
 
 echo admin | docker login --username admin --password-stdin harbor.${MY_DOMAIN}
@@ -188,5 +180,7 @@ export DOCKER_CONTENT_TRUST_SERVER=https://notary.${MY_DOMAIN}
 export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
 export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
 docker push harbor.${MY_DOMAIN}/library/kuard-amd64:blue
+
 unset DOCKER_CONTENT_TRUST
+unset SSL_CERT_FILE
 ```

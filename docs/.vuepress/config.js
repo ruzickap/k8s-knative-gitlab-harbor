@@ -17,8 +17,8 @@ module.exports = {
       {
         text: 'Links',
         items: [
-          { text: 'Harbor', link: 'https://goharbor.io' },
           { text: 'GitLab', link: 'https://gitlab.com' },
+          { text: 'Harbor', link: 'https://goharbor.io' },
           { text: 'Knative', link: 'https://cloud.google.com/knative' },
         ]
       }
