@@ -115,12 +115,12 @@ Install Harbor using Helm:
 
 ```bash
 helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.1.2 \
-  --set expose.type=clusterIP \
   --set expose.tls.enabled=true \
   --set expose.tls.secretName=ingress-cert-${LETSENCRYPT_ENVIRONMENT} \
-  --set persistence.enabled=false \
+  --set expose.type=clusterIP \
   --set externalURL=https://harbor.${MY_DOMAIN} \
-  --set harborAdminPassword=admin
+  --set harborAdminPassword=admin \
+  --set persistence.enabled=false
 ```
 
 Open the [https://harbor.mylabs.dev](https://harbor.mylabs.dev):

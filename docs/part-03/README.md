@@ -189,8 +189,8 @@ Install kubed:
 
 ```bash
 helm install appscode/kubed --name kubed --version 0.10.0 --namespace kube-system --wait \
-  --set config.clusterName=my_k8s_cluster \
-  --set apiserver.enabled=false
+  --set apiserver.enabled=false \
+  --set config.clusterName=my_k8s_cluster
 ```
 
 Output:
@@ -240,48 +240,47 @@ Install Istio:
 
 ```bash
 helm install istio.io/istio --wait --name istio --namespace istio-system --version ${ISTIO_VERSION} \
+  --set gateways.istio-ingressgateway.autoscaleMax=1 \
+  --set gateways.istio-ingressgateway.autoscaleMin=1 \
   --set gateways.istio-ingressgateway.ports[0].name=status-port \
   --set gateways.istio-ingressgateway.ports[0].port=15020 \
   --set gateways.istio-ingressgateway.ports[0].targetPort=15020 \
   --set gateways.istio-ingressgateway.ports[1].name=http \
+  --set gateways.istio-ingressgateway.ports[1].nodePort=31380 \
   --set gateways.istio-ingressgateway.ports[1].port=80 \
   --set gateways.istio-ingressgateway.ports[1].targetPort=80 \
-  --set gateways.istio-ingressgateway.ports[1].nodePort=31380 \
   --set gateways.istio-ingressgateway.ports[2].name=https \
-  --set gateways.istio-ingressgateway.ports[2].port=443 \
   --set gateways.istio-ingressgateway.ports[2].nodePort=31390 \
+  --set gateways.istio-ingressgateway.ports[2].port=443 \
   --set gateways.istio-ingressgateway.ports[3].name=ssh \
-  --set gateways.istio-ingressgateway.ports[3].port=22 \
   --set gateways.istio-ingressgateway.ports[3].nodePort=31400 \
-  --set global.k8sIngress.enabled=true \
+  --set gateways.istio-ingressgateway.ports[3].port=22 \
+  --set gateways.istio-ingressgateway.sds.enabled=true \
+  --set global.disablePolicyChecks=true \
   --set global.k8sIngress.enableHttps=true \
-  --set grafana.enabled=true \
-  --set grafana.datasources."datasources\.yaml".datasources[0].name=Prometheus \
+  --set global.k8sIngress.enabled=true \
+  --set global.proxy.autoInject=disabled \
   --set grafana.datasources."datasources\.yaml".datasources[0].access=proxy \
   --set grafana.datasources."datasources\.yaml".datasources[0].editable=true \
   --set grafana.datasources."datasources\.yaml".datasources[0].isDefault=true \
   --set grafana.datasources."datasources\.yaml".datasources[0].jsonData.timeInterval=5s \
+  --set grafana.datasources."datasources\.yaml".datasources[0].name=Prometheus \
   --set grafana.datasources."datasources\.yaml".datasources[0].orgId=1 \
   --set grafana.datasources."datasources\.yaml".datasources[0].type=prometheus \
   --set grafana.datasources."datasources\.yaml".datasources[0].url=http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 \
-  --set kiali.enabled=true \
-  --set kiali.createDemoSecret=true \
+  --set grafana.enabled=true \
   --set kiali.contextPath=/ \
+  --set kiali.createDemoSecret=true \
   --set kiali.dashboard.grafanaURL=http://grafana.${MY_DOMAIN}/ \
   --set kiali.dashboard.jaegerURL=http://jaeger.${MY_DOMAIN}/ \
+  --set kiali.enabled=true \
   --set kiali.prometheusAddr=http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 \
-  --set tracing.enabled=true \
-  --set sidecarInjectorWebhook.enabled=true \
-  --set sidecarInjectorWebhook.enableNamespacesByDefault=true \
-  --set global.proxy.autoInject=disabled \
-  --set global.disablePolicyChecks=true \
-  --set prometheus.enabled=false \
   --set mixer.adapters.prometheus.enabled=false \
-  --set global.disablePolicyChecks=true \
-  --set gateways.istio-ingressgateway.autoscaleMin=1 \
-  --set gateways.istio-ingressgateway.autoscaleMax=1 \
-  --set gateways.istio-ingressgateway.sds.enabled=true \
-  --set pilot.traceSampling=100
+  --set pilot.traceSampling=100 \
+  --set prometheus.enabled=false \
+  --set sidecarInjectorWebhook.enableNamespacesByDefault=true \
+  --set sidecarInjectorWebhook.enabled=true \
+  --set tracing.enabled=true
 ```
 
 Let `istio-ingressgateway` to use cert-manager generated certificate via
@@ -405,15 +404,15 @@ let it manage `mylabs.dev` entries in Route 53:
 
 ```bash
 helm install --wait --name external-dns --namespace external-dns --version 2.5.1 stable/external-dns \
-  --set aws.region=eu-central-1 \
-  --set aws.credentials.secretKey="${ROUTE53_AWS_SECRET_ACCESS_KEY}" \
   --set aws.credentials.accessKey="${ROUTE53_AWS_ACCESS_KEY_ID}" \
+  --set aws.credentials.secretKey="${ROUTE53_AWS_SECRET_ACCESS_KEY}" \
+  --set aws.region=eu-central-1 \
   --set domainFilters={${MY_DOMAIN}} \
-  --set policy="sync" \
-  --set sources="{istio-gateway,service}" \
   --set istioIngressGateways={istio-system/istio-ingressgateway} \
-  --set txtOwnerId="${USER}-k8s.${MY_DOMAIN}" \
-  --set rbac.create=true
+  --set policy="sync" \
+  --set rbac.create=true \
+  --set sources="{istio-gateway,service}" \
+  --set txtOwnerId="${USER}-k8s.${MY_DOMAIN}"
 ```
 
 Output:
