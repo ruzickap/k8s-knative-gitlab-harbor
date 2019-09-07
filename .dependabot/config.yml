@@ -16,6 +16,3 @@ update_configs:
       - match:
           update_type: security
           dependency_type: indirect
-    default_labels:
-      - "dependencies"
-      - "javascript"
