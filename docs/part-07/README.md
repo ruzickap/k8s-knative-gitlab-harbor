@@ -269,5 +269,5 @@ pod/my-podinfo-7pg96-deployment-6c7d57fdf7-czv2d                                
 If you open the URL again the pod should be started again and application will
 handle the traffic - this takes about 3 seconds.
 
-You can try to open the web browser with the url [https://my-podinfo.default.mylabs.dev](https://my-podinfo.default.mylabs.dev)
+You can try to open the web browser with the URL [https://my-podinfo.default.mylabs.dev](https://my-podinfo.default.mylabs.dev)
 again and test it.
