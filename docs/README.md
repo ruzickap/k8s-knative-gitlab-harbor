@@ -22,3 +22,4 @@
 * [Part 04 - Harbor installation](part-04/README.md)
 * [Part 05 - GitLab installation](part-05/README.md)
 * [Part 06 - Knative installation](part-06/README.md)
+* [Part 07 - Build and run container image using Knative + Tekton](part-07/README.md)
