@@ -1,19 +1,25 @@
 # Install Knative
 
+Set Knative version variable
+
+```bash
+export KNATIVE_VERSION="v0.9.0"
+```
+
 Knative installation...
 
 ```bash
 kubectl apply --selector knative.dev/crd-install=true \
-   --filename https://github.com/knative/serving/releases/download/v0.8.0/serving.yaml \
-   --filename https://github.com/knative/eventing/releases/download/v0.8.0/eventing.yaml \
-   --filename https://github.com/knative/serving/releases/download/v0.8.0/monitoring.yaml
+   --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving.yaml \
+   --filename https://github.com/knative/eventing/releases/download/${KNATIVE_VERSION}/eventing.yaml \
+   --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/monitoring.yaml
 
-kubectl apply \
-   --filename https://github.com/knative/serving/releases/download/v0.8.0/serving.yaml \
-   --filename https://github.com/knative/eventing/releases/download/v0.8.0/eventing.yaml \
-   --filename https://github.com/knative/serving/releases/download/v0.8.0/monitoring.yaml
+# kubectl apply \
+#    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving.yaml \
+#    --filename https://github.com/knative/eventing/releases/download/${KNATIVE_VERSION}/eventing.yaml \
+#    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/monitoring.yaml
 
-#kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/v0.8.0/github.yaml
+kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/${KNATIVE_VERSION}/github.yaml
 sleep 60
 ```
 
@@ -21,7 +27,52 @@ Install Tekton with Dashboard:
 
 ```bash
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/latest/release.yaml
-kubectl apply --filename https://github.com/tektoncd/dashboard/releases/download/v0.1.0/release.yaml
+kubectl apply --filename https://github.com/tektoncd/dashboard/releases/download/v0.2.0/release.yaml
+kubectl apply -n tekton-pipelines --filename https://github.com/tektoncd/dashboard/releases/download/v0.2.0/webhooks-extension_release.yaml
+```
+
+Output:
+
+```text
+namespace/tekton-pipelines created
+podsecuritypolicy.policy/tekton-pipelines created
+clusterrole.rbac.authorization.k8s.io/tekton-pipelines-admin created
+serviceaccount/tekton-pipelines-controller created
+clusterrolebinding.rbac.authorization.k8s.io/tekton-pipelines-controller-admin created
+customresourcedefinition.apiextensions.k8s.io/clustertasks.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/conditions.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/images.caching.internal.knative.dev unchanged
+customresourcedefinition.apiextensions.k8s.io/pipelines.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/pipelineruns.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/pipelineresources.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/tasks.tekton.dev created
+customresourcedefinition.apiextensions.k8s.io/taskruns.tekton.dev created
+service/tekton-pipelines-controller created
+service/tekton-pipelines-webhook created
+clusterrole.rbac.authorization.k8s.io/tekton-aggregate-edit created
+clusterrole.rbac.authorization.k8s.io/tekton-aggregate-view created
+configmap/config-artifact-bucket created
+configmap/config-artifact-pvc created
+configmap/config-defaults created
+configmap/config-logging created
+configmap/config-observability created
+deployment.apps/tekton-pipelines-controller created
+deployment.apps/tekton-pipelines-webhook created
+serviceaccount/tekton-dashboard created
+customresourcedefinition.apiextensions.k8s.io/extensions.dashboard.tekton.dev created
+clusterrole.rbac.authorization.k8s.io/tekton-dashboard-minimal created
+clusterrolebinding.rbac.authorization.k8s.io/tekton-dashboard-minimal created
+deployment.apps/tekton-dashboard created
+service/tekton-dashboard created
+task.tekton.dev/pipeline0-task created
+pipeline.tekton.dev/pipeline0 created
+serviceaccount/tekton-webhooks-extension created
+clusterrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created
+clusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created
+deployment.apps/webhooks-extension created
+service/webhooks-extension created
+service.serving.knative.dev/webhooks-extension-sink created
+task.tekton.dev/monitor-result-task created
 ```
 
 Export Knative services ([Prometheus](https://prometheus.io/) and
@@ -113,6 +164,15 @@ spec:
 EOF
 ```
 
+Output:
+
+```text
+gateway.networking.istio.io/knative-services-gateway created
+virtualservice.networking.istio.io/grafana-virtual-service created
+virtualservice.networking.istio.io/prometheus-virtual-service created
+virtualservice.networking.istio.io/tekton-virtual-service created
+```
+
 Set up a custom domain for Knative:
 
 ```bash
@@ -127,12 +187,69 @@ data:
 EOF
 ```
 
+Output:
+
+```text
+configmap/config-domain configured
+```
+
+Changing the controller deployment is needed if you are not using the valid
+certificates (self-signed):
+
+```bash
+if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
+  kubectl --namespace knative-serving create secret generic customca --from-file=customca.crt=tmp/fakelerootx1.pem
+  kubectl patch deployment controller --namespace knative-serving --patch "
+    {
+        \"spec\": {
+            \"template\": {
+                \"spec\": {
+                    \"containers\": [{
+                        \"env\": [{
+                            \"name\": \"SSL_CERT_DIR\",
+                            \"value\": \"/etc/customca\"
+                        }],
+                        \"name\": \"controller\",
+                        \"volumeMounts\": [{
+                            \"mountPath\": \"/etc/customca\",
+                            \"name\": \"customca\"
+                        }]
+                    }],
+                    \"volumes\": [{
+                        \"name\": \"customca\",
+                        \"secret\": {
+                            \"defaultMode\": 420,
+                            \"secretName\": \"customca\"
+                        }
+                    }]
+                }
+            }
+        }
+    }"
+fi
+```
+
+Output:
+
+```text
+secret/customca created
+deployment.extensions/controller patched
+```
+
 ## Enable automatic TLS certificate provisioning for Knative
 
 Install `networking-certmanager`:
 
 ```bash
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.8.0/serving-cert-manager.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving-cert-manager.yaml
+```
+
+Output:
+
+```text
+clusterrole.rbac.authorization.k8s.io/knative-serving-certmanager created
+configmap/config-certmanager created
+deployment.apps/networking-certmanager created
 ```
 
 Update your `config-certmanager` ConfigMap in the `knative-serving` namespace to
@@ -157,6 +274,12 @@ data:
 EOF
 ```
 
+Output:
+
+```text
+configmap/config-certmanager configured
+```
+
 Update the `config-network` ConfigMap in the `knative-serving` namespace to enable
 `autoTLS`:
 
@@ -171,4 +294,10 @@ data:
   autoTLS: Enabled
   httpProtocol: Enabled
 EOF
+```
+
+Output:
+
+```text
+configmap/config-network configured
 ```
