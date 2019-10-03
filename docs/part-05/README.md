@@ -43,6 +43,8 @@ spec:
     hosts:
     - gitlab.${MY_DOMAIN}
     - minio.${MY_DOMAIN}
+    tls:
+      httpsRedirect: true
   - port:
       number: 443
       name: https-gitlab
@@ -122,7 +124,7 @@ EOF
 Install GitLab using Helm:
 
 ```bash
-helm install --name gitlab --namespace gitlab-system --wait gitlab/gitlab --version 2.2.0 \
+helm install --name gitlab --namespace gitlab-system --wait gitlab/gitlab --version 2.2.7 \
   --set certmanager.install=false \
   --set gitlab-runner.install=false \
   --set gitlab.gitaly.persistence.size=1Gi \
@@ -246,7 +248,7 @@ Clone the [podinfo](https://github.com/stefanprodan/podinfo) project and push
 it to the newly created git repository `my-podinfo`:
 
 ```bash
-export GIT_SSH_COMMAND="ssh -i $PWD/tmp/id_rsa_gitlab"
+export GIT_SSH_COMMAND="ssh -i $PWD/tmp/id_rsa_gitlab -o UserKnownHostsFile=/dev/null"
 git clone --bare https://github.com/stefanprodan/podinfo tmp/podinfo
 git -C tmp/podinfo push --mirror git@gitlab.${MY_DOMAIN}:myuser/my-podinfo.git
 ```
