@@ -114,7 +114,7 @@ helm repo update
 Install Harbor using Helm:
 
 ```bash
-helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.1.2 \
+helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.2.0 \
   --set expose.tls.enabled=true \
   --set expose.tls.secretName=ingress-cert-${LETSENCRYPT_ENVIRONMENT} \
   --set expose.type=clusterIP \
@@ -145,7 +145,7 @@ HARBOR_ROBOT_TOKEN=$(curl -s -k -u "admin:admin" -X POST -H "Content-Type: appli
   \"description\": \"Robot account with Push/Pull access to library project\",
   \"access\": [
     {
-      \"resource\": \"/project/library/repository\",
+      \"resource\": \"/project/1/repository\",
       \"action\": \"push\"
     }
   ]
@@ -172,14 +172,19 @@ if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
   export SSL_CERT_FILE=$PWD/tmp/fakelerootx1.pem
 fi
 
-echo admin | docker login --username admin --password-stdin harbor.${MY_DOMAIN}
 docker pull gcr.io/kuar-demo/kuard-amd64:blue
+
 docker tag gcr.io/kuar-demo/kuard-amd64:blue harbor.${MY_DOMAIN}/library/kuard-amd64:blue
+echo $HARBOR_ROBOT_TOKEN | docker login --username "robot\$myrobot" --password-stdin harbor.${MY_DOMAIN}
+docker push harbor.${MY_DOMAIN}/library/kuard-amd64:blue
+
+docker tag gcr.io/kuar-demo/kuard-amd64:blue harbor.${MY_DOMAIN}/library/kuard-amd64:blue2
+echo admin | docker login --username admin --password-stdin harbor.${MY_DOMAIN}
 export DOCKER_CONTENT_TRUST=1
 export DOCKER_CONTENT_TRUST_SERVER=https://notary.${MY_DOMAIN}
 export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
 export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
-docker push harbor.${MY_DOMAIN}/library/kuard-amd64:blue
+docker push harbor.${MY_DOMAIN}/library/kuard-amd64:blue2
 
 unset DOCKER_CONTENT_TRUST
 unset SSL_CERT_FILE
