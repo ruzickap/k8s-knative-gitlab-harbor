@@ -12,13 +12,16 @@ Knative installation...
 kubectl apply --selector knative.dev/crd-install=true \
    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving.yaml \
    --filename https://github.com/knative/eventing/releases/download/${KNATIVE_VERSION}/eventing.yaml \
+   --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/monitoring.yaml \
+|| \
+kubectl apply --selector knative.dev/crd-install=true \
+   --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving.yaml \
+   --filename https://github.com/knative/eventing/releases/download/${KNATIVE_VERSION}/eventing.yaml \
    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/monitoring.yaml
-
 kubectl apply \
    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/serving.yaml \
    --filename https://github.com/knative/eventing/releases/download/${KNATIVE_VERSION}/eventing.yaml \
    --filename https://github.com/knative/serving/releases/download/${KNATIVE_VERSION}/monitoring.yaml
-
 kubectl apply -f https://github.com/knative/eventing-contrib/releases/download/${KNATIVE_VERSION}/github.yaml
 sleep 60
 ```
