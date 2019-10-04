@@ -149,6 +149,7 @@ helm install --name gitlab --namespace gitlab-system --wait gitlab/gitlab --vers
   --set prometheus.install=false \
   --set redis.persistence.size=1Gi \
   --set registry.enabled=false
+sleep 10
 ```
 
 Try to access the GitLab using the URL [https://gitlab.mylabs.dev](https://gitlab.mylabs.dev)
@@ -207,12 +208,6 @@ GILAB_MYUSER_TOKEN=$(curl -s -k -X POST -H "Content-type: application/json" -H "
   \"scopes\": [\"api\"]
 }" | jq -r ".token")
 echo ${GILAB_MYUSER_TOKEN}
-```
-
-Create `tmp` directory"
-
-```bash
-test -d tmp || mkdir tmp
 ```
 
 Create SSH key which will be imported to GitLab:

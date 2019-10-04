@@ -30,6 +30,12 @@ Output:
 secret/harbor-mylabs-dev-docker-config created
 ```
 
+Create secret for AWS user to allow Tekton pipeline to push binary to S3:
+
+```bash
+kubectl create secret generic user-aws-access-keys --from-literal=access_key=$USER_AWS_ACCESS_KEY_ID --from-literal=secret_key=$USER_AWS_SECRET_ACCESS_KEY
+```
+
 Create + start Tekton pipeline (and it's components) to build the container
 image:
 
@@ -104,6 +110,8 @@ spec:
         items:
           - key: .dockerconfigjson
             path: config.json
+    - name: binary-store
+      emptyDir: {}
   steps:
     - name: build-and-push
       image: gcr.io/kaniko-project/executor
@@ -116,10 +124,33 @@ spec:
         - --dockerfile=\$(inputs.params.pathToDockerFile)
         - --destination=\$(outputs.resources.builtImage.url)
         - --context=\$(inputs.params.pathToContext)
+        - --single-snapshot
+        - --tarPath=/binary-store/${USER}-app-build.tar
         - --skip-tls-verify
       volumeMounts:
         - name: docker-config
           mountPath: /builder/home/.docker/
+        - name: binary-store
+          mountPath: /binary-store
+    - name: upload-container-content-s3
+      image: atlassian/pipelines-awscli
+      command: ["sh", "-c", "aws s3 cp /binary-store/${USER}-app-build.tar s3://${USER}-kops-k8s/"]
+      env:
+        - name: AWS_DEFAULT_REGION
+          value: "eu-central-1"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: secret_key
+      volumeMounts:
+        - name: binary-store
+          mountPath: /binary-store
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline

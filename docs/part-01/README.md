@@ -79,41 +79,30 @@ allow cert-manager to generate wildcard SSL certificates by Let's Encrypt
 certificate authority.
 
 ```bash
+test -d tmp || mkdir tmp
+envsubst < files/user_policy.json > tmp/user_policy.json
+
 aws iam create-policy \
-  --policy-name ${USER}-AmazonRoute53Domains-cert-manager \
-  --description "Policy required by cert-manager to be able to modify Route 53 when generating wildcard certificates using Lets Encrypt" \
-  --policy-document file://files/route_53_change_policy.json \
+  --policy-name ${USER}-k8s-${MY_DOMAIN} \
+  --description "Policy for ${USER}-k8s-${MY_DOMAIN}" \
+  --policy-document file://tmp/user_policy.json \
 | jq
 ```
 
 Output:
 
 ```json
-{
-    "Policy": {
-        "PolicyName": "pruzicka-AmazonRoute53Domains-cert-manager",
-        "PolicyId": "ANPA36ZNO4Q4MTW5T5ZLX",
-        "Arn": "arn:aws:iam::822044714040:policy/pruzicka-AmazonRoute53Domains-cert-manager",
-        "Path": "/",
-        "DefaultVersionId": "v1",
-        "AttachmentCount": 0,
-        "IsAttachable": true,
-        "CreateDate": "2019-06-05T11:16:58Z",
-        "UpdateDate": "2019-06-05T11:16:58Z"
-    }
-}
 ```
 
-Create user which will use the policy above allowing the cert-manager to change
-Route 53 settings:
+Create user which will use the policy above:
 
 ```bash
-aws iam create-user --user-name ${USER}-route53 | jq && \
-POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName==\`${USER}-AmazonRoute53Domains-cert-manager\`].{ARN:Arn}" --output text) && \
-aws iam attach-user-policy --user-name "${USER}-route53" --policy-arn $POLICY_ARN && \
-aws iam create-access-key --user-name ${USER}-route53 > $HOME/.aws/${USER}-route53-${MY_DOMAIN} && \
-export ROUTE53_AWS_ACCESS_KEY_ID=$(awk -F\" "/AccessKeyId/ { print \$4 }" $HOME/.aws/${USER}-route53-${MY_DOMAIN}) && \
-export ROUTE53_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $HOME/.aws/${USER}-route53-${MY_DOMAIN})
+aws iam create-user --user-name ${USER}-k8s-${MY_DOMAIN} | jq && \
+POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName==\`${USER}-k8s-${MY_DOMAIN}\`].{ARN:Arn}" --output text) && \
+aws iam attach-user-policy --user-name "${USER}-k8s-${MY_DOMAIN}" --policy-arn $POLICY_ARN && \
+aws iam create-access-key --user-name ${USER}-k8s-${MY_DOMAIN} > $HOME/.aws/${USER}-k8s-${MY_DOMAIN} && \
+export USER_AWS_ACCESS_KEY_ID=$(awk -F\" "/AccessKeyId/ { print \$4 }" $HOME/.aws/${USER}-k8s-${MY_DOMAIN}) && \
+export USER_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $HOME/.aws/${USER}-k8s-${MY_DOMAIN})
 ```
 
 Output:
@@ -156,6 +145,7 @@ kops create cluster \
   --name=${USER}-k8s.${MY_DOMAIN} \
   --state=s3://${USER}-kops-k8s \
   --zones=eu-central-1a \
+  --networking=amazon-vpc-routed-eni \
   --node-count=5 \
   --node-size=t3.large \
   --node-volume-size=20 \
@@ -200,7 +190,6 @@ Output:
 ```
 
 ```bash
-test -d tmp || mkdir tmp
 if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
   wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O tmp/fakelerootx1.pem
   sudo mkdir -pv /etc/docker/certs.d/harbor.${MY_DOMAIN}/

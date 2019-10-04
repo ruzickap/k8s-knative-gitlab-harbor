@@ -121,6 +121,7 @@ helm install --wait --name harbor --namespace harbor-system harbor/harbor --vers
   --set externalURL=https://harbor.${MY_DOMAIN} \
   --set harborAdminPassword=admin \
   --set persistence.enabled=false
+sleep 10
 ```
 
 Open the [https://harbor.mylabs.dev](https://harbor.mylabs.dev):

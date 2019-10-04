@@ -64,15 +64,15 @@ from Let's Encrypt must be used to create wildcard certificate `*.mylabs.dev`
 ([https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/](https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/))
 
 ```bash
-export ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)
+export USER_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$USER_AWS_SECRET_ACCESS_KEY" | base64)
 cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
-  name: aws-route53-secret-access-key-secret
+  name: aws-user-secret-access-key-secret
   namespace: cert-manager
 data:
-  secret-access-key: $ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64
+  secret-access-key: $USER_AWS_SECRET_ACCESS_KEY_BASE64
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: ClusterIssuer
@@ -89,10 +89,10 @@ spec:
       providers:
       - name: aws-route53
         route53:
-          accessKeyID: ${ROUTE53_AWS_ACCESS_KEY_ID}
+          accessKeyID: ${USER_AWS_ACCESS_KEY_ID}
           region: eu-central-1
           secretAccessKeySecretRef:
-            name: aws-route53-secret-access-key-secret
+            name: aws-user-secret-access-key-secret
             key: secret-access-key
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
@@ -110,10 +110,10 @@ spec:
       providers:
       - name: aws-route53
         route53:
-          accessKeyID: ${ROUTE53_AWS_ACCESS_KEY_ID}
+          accessKeyID: ${USER_AWS_ACCESS_KEY_ID}
           region: eu-central-1
           secretAccessKeySecretRef:
-            name: aws-route53-secret-access-key-secret
+            name: aws-user-secret-access-key-secret
             key: secret-access-key
 EOF
 ```
@@ -403,8 +403,8 @@ let it manage `mylabs.dev` entries in Route 53:
 
 ```bash
 helm install --wait --name external-dns --namespace external-dns --version 2.5.1 stable/external-dns \
-  --set aws.credentials.accessKey="${ROUTE53_AWS_ACCESS_KEY_ID}" \
-  --set aws.credentials.secretKey="${ROUTE53_AWS_SECRET_ACCESS_KEY}" \
+  --set aws.credentials.accessKey="${USER_AWS_ACCESS_KEY_ID}" \
+  --set aws.credentials.secretKey="${USER_AWS_SECRET_ACCESS_KEY}" \
   --set aws.region=eu-central-1 \
   --set domainFilters={${MY_DOMAIN}} \
   --set istioIngressGateways={istio-system/istio-ingressgateway} \
