@@ -110,9 +110,24 @@ spec:
         items:
           - key: .dockerconfigjson
             path: config.json
-    - name: binary-store
+    - name: shared-storage
       emptyDir: {}
   steps:
+    - name: build-and-tar
+      image: gcr.io/kaniko-project/executor
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=\$(inputs.params.pathToDockerFile)
+        - --context=\$(inputs.params.pathToContext)
+        - --single-snapshot
+        - --tarPath=/shared-storage/${USER}-app-build.tar
+        - --no-push
+      volumeMounts:
+        - name: docker-config
+          mountPath: /builder/home/.docker/
+        - name: shared-storage
+          mountPath: /shared-storage
     - name: build-and-push
       image: gcr.io/kaniko-project/executor
       env:
@@ -125,16 +140,15 @@ spec:
         - --destination=\$(outputs.resources.builtImage.url)
         - --context=\$(inputs.params.pathToContext)
         - --single-snapshot
-        - --tarPath=/binary-store/${USER}-app-build.tar
         - --skip-tls-verify
       volumeMounts:
         - name: docker-config
           mountPath: /builder/home/.docker/
-        - name: binary-store
-          mountPath: /binary-store
+        - name: shared-storage
+          mountPath: /shared-storage
     - name: upload-container-content-s3
       image: atlassian/pipelines-awscli
-      command: ["sh", "-c", "aws s3 cp /binary-store/${USER}-app-build.tar s3://${USER}-kops-k8s/"]
+      command: ["sh", "-c", "aws s3 cp /shared-storage/${USER}-app-build.tar s3://${USER}-kops-k8s/"]
       env:
         - name: AWS_DEFAULT_REGION
           value: "eu-central-1"
@@ -149,8 +163,8 @@ spec:
               name: user-aws-access-keys
               key: secret_key
       volumeMounts:
-        - name: binary-store
-          mountPath: /binary-store
+        - name: shared-storage
+          mountPath: /shared-storage
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
