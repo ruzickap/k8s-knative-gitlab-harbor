@@ -46,8 +46,17 @@ Install [kops](https://github.com/kubernetes/kops):
 
 ```bash
 if [ ! -x /usr/local/bin/kops ]; then
-  sudo curl -s -L "https://github.com/kubernetes/kops/releases/download/1.14.0-alpha.3/kops-linux-amd64" > /usr/local/bin/kops
+  sudo curl -s -L "https://github.com/kubernetes/kops/releases/download/1.14.0-alpha.3/kops-linux-amd64" -o /usr/local/bin/kops
   sudo chmod a+x /usr/local/bin/kops
+fi
+```
+
+Install `kn` client for Knative:
+
+```bash
+if [ ! -x /usr/local/bin/kn ]; then
+  sudo curl -s -L "https://github.com/knative/client/releases/download/v0.2.0/kn-linux-amd64" -o /usr/local/bin/kn
+  sudo chmod a+x /usr/local/bin/kn
 fi
 ```
 
