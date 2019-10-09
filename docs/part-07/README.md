@@ -21,7 +21,10 @@ Create secret for Harbor registry to let Tekton pipeline to upload the container
 image:
 
 ```bash
-kubectl create secret docker-registry ${CONTAINER_REGISTRY_SERVER_MODIFIED}-docker-config --docker-server="${CONTAINER_REGISTRY_SERVER}" --docker-username="${CONTAINER_REGISTRY_USERNAME}" --docker-password="${CONTAINER_REGISTRY_PASSWORD}"
+kubectl create secret docker-registry ${CONTAINER_REGISTRY_SERVER_MODIFIED}-docker-config \
+  --docker-server="${CONTAINER_REGISTRY_SERVER}" \
+  --docker-username="${CONTAINER_REGISTRY_USERNAME}" \
+  --docker-password="${CONTAINER_REGISTRY_PASSWORD}"
 ```
 
 Output:
@@ -119,6 +122,7 @@ spec:
         - /kaniko/executor
       args:
         - --dockerfile=\$(inputs.params.pathToDockerFile)
+        - --destination=\$(outputs.resources.builtImage.url)
         - --context=\$(inputs.params.pathToContext)
         - --single-snapshot
         - --tarPath=/shared-storage/${USER}-app-build.tar
@@ -126,6 +130,25 @@ spec:
       volumeMounts:
         - name: docker-config
           mountPath: /builder/home/.docker/
+        - name: shared-storage
+          mountPath: /shared-storage
+    - name: upload-container-content-s3
+      image: atlassian/pipelines-awscli
+      command: ["sh", "-x", "-c", "ls -la /shared-storage/ ; aws s3 cp /shared-storage/${USER}-app-build.tar s3://${USER}-kops-k8s/"]
+      env:
+        - name: AWS_DEFAULT_REGION
+          value: "eu-central-1"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: secret_key
+      volumeMounts:
         - name: shared-storage
           mountPath: /shared-storage
     - name: build-and-push
@@ -144,27 +167,6 @@ spec:
       volumeMounts:
         - name: docker-config
           mountPath: /builder/home/.docker/
-        - name: shared-storage
-          mountPath: /shared-storage
-    - name: upload-container-content-s3
-      image: atlassian/pipelines-awscli
-      command: ["sh", "-c", "aws s3 cp /shared-storage/${USER}-app-build.tar s3://${USER}-kops-k8s/"]
-      env:
-        - name: AWS_DEFAULT_REGION
-          value: "eu-central-1"
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: user-aws-access-keys
-              key: access_key
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: user-aws-access-keys
-              key: secret_key
-      volumeMounts:
-        - name: shared-storage
-          mountPath: /shared-storage
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline

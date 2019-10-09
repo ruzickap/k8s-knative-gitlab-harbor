@@ -223,7 +223,7 @@ statefulset.apps/github-controller-manager created
 Install Tekton with Dashboard and Webhooks:
 
 ```bash
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/latest/release.yaml
+kubectl apply --filename https://github.com/tektoncd/pipeline/releases/download/v0.7.0/release.yaml
 kubectl apply --filename https://github.com/tektoncd/dashboard/releases/download/v0.2.0/release.yaml
 kubectl apply -n tekton-pipelines --filename https://github.com/tektoncd/dashboard/releases/download/v0.2.0/webhooks-extension_release.yaml
 ```
