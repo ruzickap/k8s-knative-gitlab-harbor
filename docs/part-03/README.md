@@ -236,7 +236,7 @@ kubectl label namespace istio-system app=kubed
 
 Install Istio:
 
-(steps take from [Knative page](https://github.com/knative/docs/blob/master/docs/install/installing-istio.md#installing-istio-with-SDS-to-secure-the-ingress-gateway))
+(steps take from [Knative page](https://github.com/knative/docs/blob/master/docs/install/installing-istio.md))
 
 ```bash
 helm install istio.io/istio --wait --name istio --namespace istio-system --version ${ISTIO_VERSION} \
