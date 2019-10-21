@@ -1,6 +1,6 @@
 # Kubernetes + Knative + GitLab + Harbor
 
-![Build Status](https://github.com/ruzickap/k8s-knative-gitlab-harbor/workflows/vuepress-build/badge.svg)
+[![Build Status](https://github.com/ruzickap/k8s-knative-gitlab-harbor/workflows/vuepress-build/badge.svg)](https://github.com/ruzickap/k8s-knative-gitlab-harbor)
 
 * Demo GitHub repository: [https://github.com/ruzickap/k8s-knative-gitlab-harbor](https://github.com/ruzickap/k8s-knative-gitlab-harbor)
 * Demo Web Pages: [https://ruzickap.github.io/k8s-knative-gitlab-harbor](https://ruzickap.github.io/k8s-knative-gitlab-harbor)
