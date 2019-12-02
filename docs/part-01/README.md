@@ -46,8 +46,9 @@ Install [kops](https://github.com/kubernetes/kops):
 
 ```bash
 if [ ! -x /usr/local/bin/kops ]; then
-  sudo curl -s -L "https://github.com/kubernetes/kops/releases/download/1.14.0-alpha.3/kops-linux-amd64" -o /usr/local/bin/kops
-  sudo chmod a+x /usr/local/bin/kops
+  curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | jq -r '.tag_name')/kops-linux-amd64
+  chmod +x kops-linux-amd64
+  sudo mv kops-linux-amd64 /usr/local/bin/kops
 fi
 ```
 
@@ -55,8 +56,17 @@ Install `kn` client for Knative:
 
 ```bash
 if [ ! -x /usr/local/bin/kn ]; then
-  sudo curl -s -L "https://github.com/knative/client/releases/download/v0.2.0/kn-linux-amd64" -o /usr/local/bin/kn
+  sudo curl -s -L "https://github.com/knative/client/releases/download/v0.10.0/kn-linux-amd64" -o /usr/local/bin/kn
   sudo chmod a+x /usr/local/bin/kn
+fi
+```
+
+Install [hub](https://hub.github.com/):
+
+```bash
+if [ ! -x /usr/local/bin/hub ]; then
+  curl -s -L https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz | tar xzf - -C /tmp/
+  sudo mv /tmp/hub-linux-amd64-2.13.0/bin/hub /usr/local/bin/
 fi
 ```
 
