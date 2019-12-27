@@ -1,5 +1,7 @@
 # Knative operations
 
+Create service `my-podinfo-2` with image:
+
 ```bash
 kn service create my-podinfo-2 --port 9898 --image harbor.mylabs.dev/library/my-podinfo:3.1.0
 sleep 30
@@ -54,6 +56,8 @@ Output:
 }
 ```
 
+Set hard limit of concurrent requests to be processed by a single replica:
+
 ```bash
 kn service update my-podinfo-2 --concurrency-limit=1
 ```
@@ -70,6 +74,8 @@ Updating Service 'my-podinfo-2' in namespace 'default':
 Service 'my-podinfo-2' updated with latest revision 'my-podinfo-2-hfqhc-2' and URL:
 http://my-podinfo-2.default.mylabs.dev
 ```
+
+Check the pods:
 
 ```bash
 kubectl get pods
