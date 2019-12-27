@@ -4,6 +4,7 @@
 
 * Demo GitHub repository: [https://github.com/ruzickap/k8s-knative-gitlab-harbor](https://github.com/ruzickap/k8s-knative-gitlab-harbor)
 * Demo Web Pages: [https://ruzickap.github.io/k8s-knative-gitlab-harbor](https://ruzickap.github.io/k8s-knative-gitlab-harbor)
+* Asciinema: [https://asciinema.org/a/290547](https://asciinema.org/a/290547)
 
 ## Requirements
 
@@ -26,3 +27,7 @@
 * [Part 08 - Automated deployment with Tekton](part-08/README.md)
 * [Part 09 - Knative operations](part-09/README.md)
 * [Part 10 - Clean-up](part-10/README.md)
+
+## Asciinema
+
+[![asciicast](https://asciinema.org/a/290547.svg)](https://asciinema.org/a/290547)
