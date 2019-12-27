@@ -1,52 +1,39 @@
 # Install Helm
 
-Helm Architecture:
-
-![Helm Architecture](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/5a29c3c1-7c6b-41fa-8082-bdc8a36177c9/Image/c64c01d08df64f4420e81f962fd13a23/screen_shot_2018_09_11_at_4_48_19_pm.png
-"Helm Architecture")
-([https://blogs.oracle.com/cloudnative/helm-kubernetes-package-management](https://blogs.oracle.com/cloudnative/helm-kubernetes-package-management))
-
 Install [Helm](https://helm.sh/) binary:
 
 ```bash
-curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash -s -- --version v2.14.3
+curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
 
 Output:
 
 ```text
-Helm v2.14.3 is already v2.14.3
-Run 'helm init' to configure helm.
+Downloading https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz
+Preparing to install helm into /usr/local/bin
+helm installed into /usr/local/bin/helm
 ```
 
-Install Tiller (the Helm server-side component) into the Kubernetes cluster:
+Add the "stable" repository:
 
 ```bash
-kubectl create serviceaccount tiller --namespace kube-system
-kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-helm init --wait --service-account tiller
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
 ```
 
 Output:
 
 ```text
-```
-
-Check if the tiller was installed properly:
-
-```bash
-kubectl get pods -l app=helm -n kube-system
-```
-
-Output:
-
-```text
+"stable" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "stable" chart repository
+Update Complete. ⎈ Happy Helming!⎈
 ```
 
 Install kube2iam to restrict pod's access:
 
 ```bash
-helm install stable/kube2iam --name kube2iam --namespace=kube-system \
+helm install kube2iam stable/kube2iam --namespace=kube-system \
   --set host.iptables=true \
   --set rbac.create=true
 ```
@@ -54,4 +41,22 @@ helm install stable/kube2iam --name kube2iam --namespace=kube-system \
 Output:
 
 ```text
+NAME: kube2iam
+LAST DEPLOYED: Fri Dec 27 10:48:20 2019
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+To verify that kube2iam has started, run:
+
+  kubectl --namespace=kube-system get pods -l "app.kubernetes.io/name=kube2iam,app.kubernetes.io/instance=kube2iam"
+
+Add an iam.amazonaws.com/role annotation to your pods with the role you want them to assume.
+
+  https://github.com/jtblin/kube2iam#kubernetes-annotation
+
+Use `curl` to verify the pod's role from within:
+
+  curl http://169.254.169.254/latest/meta-data/iam/security-credentials/
 ```

@@ -15,7 +15,7 @@ test -s ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxto
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=600
+TYPE_SPEED=60
 
 # Uncomment to run non-interactively
 export PROMPT_TIMEOUT=0
@@ -37,9 +37,9 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 ### Please run these commands before running the script
 
 # if [ -n "$SSH_AUTH_SOCK" ]; then
-#  docker run -it --rm -e USER="$USER" -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws ubuntu
+#  docker run -it --rm -e USER="$USER" -e GITHUB_API_TOKEN="$GITHUB_API_TOKEN" -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
 # else
-#  docker run -it --rm -e USER="$USER" -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws ubuntu
+#  docker run -it --rm -e USER="$USER" -e GITHUB_API_TOKEN="$GITHUB_API_TOKEN" -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
 # fi
 # echo $(hostname -I) $(hostname) >> /etc/hosts
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
@@ -52,7 +52,7 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 
 [ ! -d .git ] && git clone --quiet https://github.com/ruzickap/k8s-knative-gitlab-harbor && cd k8s-knative-gitlab-harbor
 
-sed docs/part-0{1..8}/README.md \
+sed docs/part-0{1..9}/README.md \
   -e '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings./d' \
 | \
 sed -n '/^```bash.*/,/^```$/p' \

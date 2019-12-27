@@ -27,12 +27,6 @@ kubectl create secret docker-registry ${CONTAINER_REGISTRY_SERVER_MODIFIED}-dock
   --docker-password="${CONTAINER_REGISTRY_PASSWORD}"
 ```
 
-Output:
-
-```text
-secret/harbor-mylabs-dev-docker-config created
-```
-
 Create secret for AWS user to allow Tekton pipeline to push binary to S3:
 
 ```bash
@@ -52,7 +46,7 @@ metadata:
   annotations:
     tekton.dev/git-0: ${GIT_SSH_SERVER}
 data:
-  ssh-privatekey: `base64 -w 0 ${GIT_REPO_SSH_KEY}`
+  ssh-privatekey: $(base64 -w 0 ${GIT_REPO_SSH_KEY})
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -211,24 +205,13 @@ spec:
       resourceRef:
         name: ${GIT_PROJECT_NAME}-project-image
 EOF
-```
-
-Output:
-
-```text
-secret/gitlab-mylabs-dev-ssh-key created
-serviceaccount/gitlab-mylabs-dev-build-bot created
-pipelineresource.tekton.dev/my-podinfo-project-git created
-pipelineresource.tekton.dev/my-podinfo-project-image created
-task.tekton.dev/build-docker-image-from-git-task created
-pipeline.tekton.dev/build-docker-image-from-git-pipeline created
-pipelinerun.tekton.dev/my-podinfo-build-docker-image-from-git-pipelinerun created
+sleep 5
 ```
 
 Wait for container build process will complete:
 
 ```bash
-kubectl wait --timeout=30m --for=condition=Succeeded pipelineruns/${GIT_PROJECT_NAME}-build-docker-image-from-git-pipelinerun
+kubectl wait --timeout=10m --for=condition=Succeeded pipelineruns/${GIT_PROJECT_NAME}-build-docker-image-from-git-pipelinerun
 ```
 
 Output:
@@ -258,12 +241,6 @@ EOF
 sleep 20
 ```
 
-Output:
-
-```text
-service.serving.knative.dev/my-podinfo created
-```
-
 Check the status of the application:
 
 ```bash
@@ -274,27 +251,27 @@ Output:
 
 ```text
 NAME                                                                             READY   STATUS      RESTARTS   AGE
-pod/my-podinfo-7pg96-deployment-6c7d57fdf7-czv2d                                 3/3     Running     0          18s
-pod/my-podinfo-build-docker-image-from-git-pipelinerun-build--2rvr4-pod-349d80   0/4     Completed   0          30m
+pod/my-podinfo-build-docker-image-from-git-pipelinerun-build--msbcv-pod-d6861e   0/6     Completed   0          7m56s
+pod/my-podinfo-vpw78-deployment-bbb89db58-vmnhb                                  2/2     Running     0          21s
 
-NAME                                     URL                                     LATESTCREATED      LATESTREADY        READY   REASON
-service.serving.knative.dev/my-podinfo   https://my-podinfo.default.mylabs.dev   my-podinfo-7pg96   my-podinfo-7pg96   True
+NAME                                     URL                                    LATESTCREATED      LATESTREADY        READY   REASON
+service.serving.knative.dev/my-podinfo   http://my-podinfo.default.mylabs.dev   my-podinfo-vpw78   my-podinfo-vpw78   True
 
 NAME                                           LATESTCREATED      LATESTREADY        READY   REASON
-configuration.serving.knative.dev/my-podinfo   my-podinfo-7pg96   my-podinfo-7pg96   True
+configuration.serving.knative.dev/my-podinfo   my-podinfo-vpw78   my-podinfo-vpw78   True
 
 NAME                                            CONFIG NAME   K8S SERVICE NAME   GENERATION   READY   REASON
-revision.serving.knative.dev/my-podinfo-7pg96   my-podinfo    my-podinfo-7pg96   1            True
+revision.serving.knative.dev/my-podinfo-vpw78   my-podinfo    my-podinfo-vpw78   1            True
 
-NAME                                   URL                                     READY   REASON
-route.serving.knative.dev/my-podinfo   https://my-podinfo.default.mylabs.dev   True
+NAME                                   URL                                    READY   REASON
+route.serving.knative.dev/my-podinfo   http://my-podinfo.default.mylabs.dev   True
 
 NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/my-podinfo-7pg96-deployment   1/1     1            1           26m
+deployment.extensions/my-podinfo-vpw78-deployment   1/1     1            1           21s
 ```
 
 Open [https://my-podinfo.default.mylabs.dev](https://my-podinfo.default.mylabs.dev)
-to see the application.
+to see the application:
 
 When you close the web browser - after some time without handling traffic
 the number of running pods should drop to zero:
@@ -307,10 +284,11 @@ Output:
 
 ```text
 NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/my-podinfo-7pg96-deployment   0/0     0            0           27m
+deployment.extensions/my-podinfo-vpw78-deployment   1/1     1            1           22s
 
-NAME                                                                             READY   STATUS        RESTARTS   AGE
-pod/my-podinfo-7pg96-deployment-6c7d57fdf7-czv2d                                 3/3     Terminating   0          97s
+NAME                                                                             READY   STATUS      RESTARTS   AGE
+pod/my-podinfo-build-docker-image-from-git-pipelinerun-build--msbcv-pod-d6861e   0/6     Completed   0          7m57s
+pod/my-podinfo-vpw78-deployment-bbb89db58-vmnhb                                  2/2     Running     0          22s
 ```
 
 If you open the URL again the pod should be started again and application will
@@ -318,3 +296,5 @@ handle the traffic - this takes about 3 seconds.
 
 You can try to open the web browser with the URL [https://my-podinfo.default.mylabs.dev](https://my-podinfo.default.mylabs.dev)
 again and test it.
+
+![podinfo](./podinfo.png "podinfo")

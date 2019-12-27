@@ -7,8 +7,8 @@ Label Harbor namespace and copy there the secret with certificates signed by
 Let's Encrypt certificate:
 
 ```bash
-kubectl create namespace harbor-system
-kubectl label namespace harbor-system app=kubed
+kubectl create namespace harbor
+kubectl label namespace harbor app=kubed
 ```
 
 Create Istio Gateways and VirtualServices to allow accessing Harbor from
@@ -20,7 +20,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: harbor-gateway
-  namespace: harbor-system
+  namespace: harbor
 spec:
   selector:
     istio: ingressgateway
@@ -45,7 +45,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: harbor-http-virtual-service
-  namespace: harbor-system
+  namespace: harbor
 spec:
   hosts:
   - harbor.${MY_DOMAIN}
@@ -56,7 +56,7 @@ spec:
     - port: 80
     route:
     - destination:
-        host: harbor.harbor-system.svc.cluster.local
+        host: harbor.harbor.svc.cluster.local
         port:
           number: 80
 ---
@@ -64,7 +64,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: harbor-https-virtual-service
-  namespace: harbor-system
+  namespace: harbor
 spec:
   hosts:
   - harbor.${MY_DOMAIN}
@@ -77,7 +77,7 @@ spec:
       - harbor.${MY_DOMAIN}
     route:
     - destination:
-        host: harbor.harbor-system.svc.cluster.local
+        host: harbor.harbor.svc.cluster.local
         port:
           number: 443
 ---
@@ -85,7 +85,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: harbor-notary-virtual-service
-  namespace: harbor-system
+  namespace: harbor
 spec:
   hosts:
   - notary.${MY_DOMAIN}
@@ -98,7 +98,7 @@ spec:
       - notary.${MY_DOMAIN}
     route:
     - destination:
-        host: harbor.harbor-system.svc.cluster.local
+        host: harbor.harbor.svc.cluster.local
         port:
           number: 4443
 EOF
@@ -114,14 +114,28 @@ helm repo update
 Install Harbor using Helm:
 
 ```bash
-helm install --wait --name harbor --namespace harbor-system harbor/harbor --version v1.2.0 \
+helm install harbor harbor/harbor --namespace harbor --version v1.2.3 --wait \
   --set expose.tls.enabled=true \
   --set expose.tls.secretName=ingress-cert-${LETSENCRYPT_ENVIRONMENT} \
   --set expose.type=clusterIP \
   --set externalURL=https://harbor.${MY_DOMAIN} \
   --set harborAdminPassword=admin \
   --set persistence.enabled=false
-sleep 10
+```
+
+Output:
+
+```text
+NAME: harbor
+LAST DEPLOYED: Fri Dec 27 10:54:23 2019
+NAMESPACE: harbor
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Please wait for several minutes for Harbor deployment to complete.
+Then you should be able to visit the Harbor portal at https://harbor.mylabs.dev.
+For more details, please visit https://github.com/goharbor/harbor.
 ```
 
 Open the [https://harbor.mylabs.dev](https://harbor.mylabs.dev):
@@ -152,6 +166,12 @@ HARBOR_ROBOT_TOKEN=$(curl -s -k -u "admin:admin" -X POST -H "Content-Type: appli
   ]
 }" | jq -r ".token")
 echo ${HARBOR_ROBOT_TOKEN}
+```
+
+Output:
+
+```text
+eyJhbGciO .... oOFJvwidsQ
 ```
 
 Enable automated vulnerability scan after each "image push" to the project

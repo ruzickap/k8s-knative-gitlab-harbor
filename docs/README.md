@@ -23,3 +23,6 @@
 * [Part 05 - GitLab installation](part-05/README.md)
 * [Part 06 - Knative installation](part-06/README.md)
 * [Part 07 - Build and run container image using Knative + Tekton](part-07/README.md)
+* [Part 08 - Automated deployment with Tekton](part-08/README.md)
+* [Part 09 - Knative operations](part-09/README.md)
+* [Part 10 - Clean-up](part-10/README.md)

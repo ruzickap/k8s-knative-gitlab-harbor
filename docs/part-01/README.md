@@ -56,8 +56,17 @@ Install `kn` client for Knative:
 
 ```bash
 if [ ! -x /usr/local/bin/kn ]; then
-  sudo curl -s -L "https://github.com/knative/client/releases/download/v0.10.0/kn-linux-amd64" -o /usr/local/bin/kn
+  sudo curl -s -L "https://github.com/knative/client/releases/download/v0.11.0/kn-linux-amd64" -o /usr/local/bin/kn
   sudo chmod a+x /usr/local/bin/kn
+fi
+```
+
+Install `tkn` client for Tekton:
+
+```bash
+if [ ! -x /usr/local/bin/tkn ]; then
+  curl -s -L https://github.com/tektoncd/cli/releases/download/v0.6.0/tkn_0.6.0_Linux_x86_64.tar.gz | tar xzf - -C /tmp/
+  sudo mv /tmp/tkn /usr/local/bin/
 fi
 ```
 
@@ -111,6 +120,20 @@ aws iam create-policy \
 Output:
 
 ```json
+{
+  "Policy": {
+    "PolicyName": "pruzicka-k8s-mylabs.dev",
+    "PolicyId": "ANPA36ZNO4Q4LPYMWVM2W",
+    "Arn": "arn:aws:iam::822044714040:policy/pruzicka-k8s-mylabs.dev",
+    "Path": "/",
+    "DefaultVersionId": "v1",
+    "AttachmentCount": 0,
+    "PermissionsBoundaryUsageCount": 0,
+    "IsAttachable": true,
+    "CreateDate": "2019-12-27T09:41:14Z",
+    "UpdateDate": "2019-12-27T09:41:14Z"
+  }
+}
 ```
 
 Create user which will use the policy above:
@@ -127,6 +150,15 @@ export USER_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $
 Output:
 
 ```json
+{
+  "User": {
+    "Path": "/",
+    "UserName": "pruzicka-k8s-mylabs.dev",
+    "UserId": "AIDA36ZNO4Q4GNMSTIAET",
+    "Arn": "arn:aws:iam::822044714040:user/pruzicka-k8s-mylabs.dev",
+    "CreateDate": "2019-12-27T09:41:27Z"
+  }
+}
 ```
 
 The `AccessKeyId` and `SecretAccessKey` is need for creating the `ClusterIssuer`
@@ -157,6 +189,14 @@ Create S3 bucket where the kops will store cluster status:
 aws s3api create-bucket --bucket ${USER}-kops-k8s --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1 | jq
 ```
 
+Output:
+
+```json
+{
+  "Location": "http://pruzicka-kops-k8s.s3.amazonaws.com/"
+}
+```
+
 Create Kubernetes cluster in AWS by using [kops](https://github.com/kubernetes/kops):
 
 ```bash
@@ -180,6 +220,16 @@ kops create cluster \
 Output:
 
 ```text
+...
+I1227 10:42:09.459809   15782 executor.go:103] Tasks: 91 done / 91 total; 0 can run
+I1227 10:42:09.459901   15782 dns.go:155] Pre-creating DNS records
+I1227 10:42:10.791005   15782 update_cluster.go:294] Exporting kubecfg for cluster
+kops has set your kubectl context to pruzicka-k8s.mylabs.dev
+
+Cluster changes have been applied to the cloud.
+
+
+Changes may require instances to restart: kops rolling-update cluster
 ```
 
 Wait for cluster to be up and running:
@@ -206,11 +256,21 @@ kubectl get nodes -o wide
 Output:
 
 ```text
+NAME                                             STATUS   ROLES    AGE     VERSION   INTERNAL-IP     EXTERNAL-IP      OS-IMAGE                       KERNEL-VERSION   CONTAINER-RUNTIME
+ip-172-20-37-106.eu-central-1.compute.internal   Ready    master   2m23s   v1.15.6   172.20.37.106   35.159.31.183    Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
+ip-172-20-37-122.eu-central-1.compute.internal   Ready    node     56s     v1.15.6   172.20.37.122   3.120.151.131    Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
+ip-172-20-37-204.eu-central-1.compute.internal   Ready    node     32s     v1.15.6   172.20.37.204   18.196.187.216   Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
+ip-172-20-47-14.eu-central-1.compute.internal    Ready    node     67s     v1.15.6   172.20.47.14    18.196.173.69    Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
+ip-172-20-47-61.eu-central-1.compute.internal    Ready    node     53s     v1.15.6   172.20.47.61    18.184.73.151    Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
+ip-172-20-59-57.eu-central-1.compute.internal    Ready    node     83s     v1.15.6   172.20.59.57    54.93.48.121     Debian GNU/Linux 9 (stretch)   4.9.0-11-amd64   docker://18.6.3
 ```
 
+In case of using `staging` environment add "Let's Encrypt testing" [fakelerootx1.pem](https://letsencrypt.org/certs/fakelerootx1.pem)
+as trusted certificate authority:
+
 ```bash
+wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O tmp/fakelerootx1.pem
 if [ ${LETSENCRYPT_ENVIRONMENT} = "staging" ]; then
-  wget -q https://letsencrypt.org/certs/fakelerootx1.pem -O tmp/fakelerootx1.pem
   sudo mkdir -pv /etc/docker/certs.d/harbor.${MY_DOMAIN}/
   sudo cp tmp/fakelerootx1.pem /etc/docker/certs.d/harbor.${MY_DOMAIN}/ca.crt
   for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do

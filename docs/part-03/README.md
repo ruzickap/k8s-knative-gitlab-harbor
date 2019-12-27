@@ -16,13 +16,8 @@ cert-manager architecture:
 Install the CRDs resources separately:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
+kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.10/deploy/manifests/00-crds.yaml
 sleep 5
-```
-
-Output:
-
-```text
 ```
 
 Create the namespace for cert-manager and label it to disable resource
@@ -33,22 +28,44 @@ kubectl create namespace cert-manager
 kubectl label namespace cert-manager certmanager.k8s.io/disable-validation=true
 ```
 
-Output:
-
-```text
-```
-
 Install the cert-manager Helm chart:
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-helm install --name cert-manager --namespace cert-manager --wait jetstack/cert-manager --version v0.10.1
+helm install cert-manager --namespace cert-manager --wait jetstack/cert-manager --version v0.10.1
 ```
 
 Output:
 
 ```text
+"jetstack" has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "jetstack" chart repository
+...Successfully got an update from the "stable" chart repository
+Update Complete. ⎈ Happy Helming!⎈
+NAME: cert-manager
+LAST DEPLOYED: Fri Dec 27 10:48:40 2019
+NAMESPACE: cert-manager
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+cert-manager has been deployed successfully!
+
+In order to begin issuing certificates, you will need to set up a ClusterIssuer
+or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
+
+More information on the different types of issuers and how to configure them
+can be found in our documentation:
+
+https://docs.cert-manager.io/en/latest/reference/issuers.html
+
+For information on how to configure cert-manager to automatically provision
+Certificates for Ingress resources, take a look at the `ingress-shim`
+documentation:
+
+https://docs.cert-manager.io/en/latest/reference/ingress-shim.html
 ```
 
 ### Create ClusterIssuer for Let's Encrypt
@@ -118,11 +135,6 @@ spec:
 EOF
 ```
 
-Output:
-
-```text{16,23,48}
-```
-
 ## Generate TLS certificate
 
 Create certificate using cert-manager:
@@ -151,11 +163,6 @@ spec:
 EOF
 ```
 
-Output:
-
-```text
-```
-
 ![cert-manager - Create certificate](https://i1.wp.com/blog.openshift.com/wp-content/uploads/OCP-PKI-and-certificates-cert-manager.png
 "cert-manager - Create certificate")
 
@@ -180,15 +187,10 @@ helm repo add appscode https://charts.appscode.com/stable/
 helm repo update
 ```
 
-Output:
-
-```text
-```
-
 Install kubed:
 
 ```bash
-helm install appscode/kubed --name kubed --version 0.11.0 --namespace kube-system --wait \
+helm install kubed appscode/kubed --version 0.11.0 --namespace kube-system --wait \
   --set apiserver.enabled=false \
   --set config.clusterName=my_k8s_cluster
 ```
@@ -196,6 +198,16 @@ helm install appscode/kubed --name kubed --version 0.11.0 --namespace kube-syste
 Output:
 
 ```text
+NAME: kubed
+LAST DEPLOYED: Fri Dec 27 10:49:39 2019
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+To verify that Kubed has started, run:
+
+  kubectl --namespace=kube-system get deployments -l "release=kubed, app=kubed"
 ```
 
 Annotate (mark) the cert-manager secret to be copied to other namespaces
@@ -205,17 +217,12 @@ if necessary:
 kubectl annotate secret ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n cert-manager kubed.appscode.com/sync="app=kubed"
 ```
 
-Output:
-
-```text
-```
-
 ## Install Istio
 
 Add Istio helm chart repository:
 
 ```bash
-export ISTIO_VERSION="1.3.2"
+export ISTIO_VERSION="1.3.6"
 helm repo add istio.io https://storage.googleapis.com/istio-release/releases/${ISTIO_VERSION}/charts/
 helm repo update
 ```
@@ -223,8 +230,24 @@ helm repo update
 Install CRDs for Istio:
 
 ```bash
-helm install istio.io/istio-init --wait --name istio-init --namespace istio-system --version ${ISTIO_VERSION}
-sleep 25
+kubectl create namespace istio-system
+helm install istio-init istio.io/istio-init --wait --namespace istio-system --version ${ISTIO_VERSION}
+kubectl -n istio-system wait --for=condition=complete job --all
+```
+
+Output:
+
+```text
+namespace/istio-system created
+NAME: istio-init
+LAST DEPLOYED: Fri Dec 27 10:49:56 2019
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+job.batch/istio-init-crd-10-1.3.6 condition met
+job.batch/istio-init-crd-11-1.3.6 condition met
+job.batch/istio-init-crd-12-1.3.6 condition met
 ```
 
 Label Istio namespace and which will trigger `kubed` to copy there the secret
@@ -236,10 +259,10 @@ kubectl label namespace istio-system app=kubed
 
 Install Istio:
 
-(steps take from [Knative page](https://github.com/knative/docs/blob/master/docs/install/installing-istio.md))
+(steps take from [Knative page](https://github.com/knative/docs/blob/a8a1032de0c2b19f07a70456c030dfde94b12c03/docs/install/installing-istio.md))
 
 ```bash
-helm install istio.io/istio --wait --name istio --namespace istio-system --version ${ISTIO_VERSION} \
+helm install istio istio.io/istio --wait --namespace istio-system --version ${ISTIO_VERSION} \
   --set gateways.istio-ingressgateway.autoscaleMax=1 \
   --set gateways.istio-ingressgateway.autoscaleMin=1 \
   --set gateways.istio-ingressgateway.ports[0].name=status-port \
@@ -283,9 +306,37 @@ helm install istio.io/istio --wait --name istio --namespace istio-system --versi
   --set tracing.enabled=true
 ```
 
+Output:
+
+```text
+NAME: istio
+LAST DEPLOYED: Fri Dec 27 10:50:54 2019
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Thank you for installing Istio.
+
+Your release is named Istio.
+
+To get started running application with Istio, execute the following steps:
+1. Label namespace that application object will be deployed to by the following command (take default namespace as an example)
+
+  kubectl label namespace default istio-injection=enabled
+  kubectl get namespace -L istio-injection
+
+2. Deploy your applications
+
+  kubectl apply -f <your-application>.yaml
+
+For more information on running Istio, visit:
+https://istio.io/
+```
+
 Let `istio-ingressgateway` to use cert-manager generated certificate via
 [SDS](https://www.envoyproxy.io/docs/envoy/v1.5.0/intro/arch_overview/service_discovery#arch-overview-service-discovery-types-sds).
-Steps are taken from here [https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/](https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/).
+Steps are taken from this URL: [https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/](https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/).
 
 ```bash
 kubectl -n istio-system patch gateway istio-autogenerated-k8s-ingress \
@@ -399,15 +450,19 @@ EOF
 ## Create DNS records
 
 Install [external-dns](https://github.com/kubernetes-incubator/external-dns) and
-let it manage `mylabs.dev` entries in Route 53:
+let it manage `mylabs.dev` entries in Route 53 (Do not upgrade external-dns,
+because it's not backward compatible and using different way of authentication
+to Route53 using roles):
 
 ```bash
-helm install --wait --name external-dns --namespace external-dns --version 2.5.1 stable/external-dns \
+kubectl create namespace external-dns
+helm install external-dns stable/external-dns --namespace external-dns --version 2.10.1 --wait \
   --set aws.credentials.accessKey="${USER_AWS_ACCESS_KEY_ID}" \
   --set aws.credentials.secretKey="${USER_AWS_SECRET_ACCESS_KEY}" \
   --set aws.region=eu-central-1 \
   --set domainFilters={${MY_DOMAIN}} \
   --set istioIngressGateways={istio-system/istio-ingressgateway} \
+  --set interval="10s" \
   --set policy="sync" \
   --set rbac.create=true \
   --set sources="{istio-gateway,service}" \
@@ -417,7 +472,26 @@ helm install --wait --name external-dns --namespace external-dns --version 2.5.1
 Output:
 
 ```json
+namespace/external-dns created
+NAME: external-dns
+LAST DEPLOYED: Fri Dec 27 10:53:29 2019
+NAMESPACE: external-dns
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+** Please be patient while the chart is being deployed **
+
+To verify that external-dns has started, run:
+
+  kubectl --namespace=external-dns get pods -l "app.kubernetes.io/name=external-dns,app.kubernetes.io/instance=external-dns"
 ```
 
 ![Architecture](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/crystal.svg?sanitize=true
 "Architecture")
+
+You should be able to reach these URLs:
+
+* Grafana: [https://grafana-istio.mylabs.dev](https://grafana-istio.mylabs.dev)
+* Jaeger: [https://jaeger-istio.mylabs.dev](https://jaeger-istio.mylabs.dev)
+* Kiali: [https://kiali-istio.mylabs.dev](https://kiali-istio.mylabs.dev)
