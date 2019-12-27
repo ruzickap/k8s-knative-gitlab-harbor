@@ -29,7 +29,7 @@ Install necessary software:
 ```bash
 if [ -x /usr/bin/apt ]; then
   apt update -qq
-  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl git jq openssh-client sudo wget > /dev/null
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl docker.io gettext-base git jq openssh-client sudo wget > /dev/null
 fi
 ```
 

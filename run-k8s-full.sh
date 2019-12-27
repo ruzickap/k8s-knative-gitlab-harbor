@@ -36,11 +36,8 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 
 ### Please run these commands before running the script
 
-# if [ -n "$SSH_AUTH_SOCK" ]; then
-#  docker run -it --rm -e USER="$USER" -e GITHUB_API_TOKEN="$GITHUB_API_TOKEN" -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
-# else
-#  docker run -it --rm -e USER="$USER" -e GITHUB_API_TOKEN="$GITHUB_API_TOKEN" -v $PWD:/mnt -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
-# fi
+# SSH agent needs to be enabled
+# docker run -it --rm -e USER -e GITHUB_API_TOKEN -e SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
 # echo $(hostname -I) $(hostname) >> /etc/hosts
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
 # cd /mnt
