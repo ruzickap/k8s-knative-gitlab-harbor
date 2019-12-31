@@ -6,6 +6,7 @@ set -eu
 # include the magic
 ################################################
 test -s ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh > demo-magic.sh
+# shellcheck disable=SC1091
 . ./demo-magic.sh
 
 ################################################
@@ -15,7 +16,7 @@ test -s ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxto
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=60
+export TYPE_SPEED=60
 
 # Uncomment to run non-interactively
 export PROMPT_TIMEOUT=0
@@ -29,7 +30,7 @@ export NO_WAIT=true
 # see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
 #
 #DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
-DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
+export DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 
 # hide the evidence
 #clear
@@ -52,16 +53,16 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 sed docs/part-0{1..9}/README.md \
   -e '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings./d' \
 | \
-sed -n '/^```bash.*/,/^```$/p' \
+sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p" \
 | \
 sed \
-  -e 's/^```bash.*/\
-pe '"'"'/' \
+  -e 's/^```bash.*/\npe '"'"'/' \
   -e 's/^```$/'"'"'/' \
 > README.sh
 
 
 if [ "$#" -eq 0 ]; then
+  # shellcheck disable=SC1091
   source README.sh
 else
   cat README.sh
