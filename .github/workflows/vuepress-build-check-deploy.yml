@@ -11,8 +11,6 @@ on:
       - package.json
       - package-lock.json
   push:
-    branches:
-      - master
     paths:
       - .github/workflows/vuepress-build-check-deploy.yml
       - docs/**
@@ -80,6 +78,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2.8.0
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
