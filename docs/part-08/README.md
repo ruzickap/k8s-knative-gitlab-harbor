@@ -609,7 +609,7 @@ metadata:
   name: webhook-secret
   namespace: getting-started
 stringData:
-  token: ${GITHUB_API_TOKEN}
+  token: ${GITHUB_TOKEN}
   secret: random-string-data
 EOF
 ```

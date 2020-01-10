@@ -38,7 +38,7 @@ export DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 ### Please run these commands before running the script
 
 # SSH agent needs to be enabled
-# docker run -it --rm -e USER -e GITHUB_API_TOKEN -e SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
+# docker run -it --rm -e USER -e GITHUB_TOKEN -e SSH_AUTH_SOCK -v $PWD:/mnt -v $HOME/.aws:/root/.aws -v $HOME/.config/hub:/root/.config/hub:ro ubuntu
 # echo $(hostname -I) $(hostname) >> /etc/hosts
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
 # cd /mnt
