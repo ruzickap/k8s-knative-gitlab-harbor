@@ -5,18 +5,19 @@ on:
     types: [opened, synchronize]
     paths:
       - '**.sh'
+      - .github/workflows/shellcheck.yml
   push:
     branches:
       - master
+    paths:
+      - '**.sh'
+      - .github/workflows/shellcheck.yml
 
 jobs:
-  shellcheck:
+  shellcheck-check:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
 
-      - name: shellcheck
-        uses: reviewdog/action-shellcheck@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
+      - name: Lint check
+        uses: azohra/shell-linter@v0.2.0
