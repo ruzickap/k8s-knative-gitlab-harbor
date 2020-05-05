@@ -25,6 +25,7 @@ Nginx
 podinfo
 rolebinding
 Route53
+self-serviced-end-to-end-encryption-approaches-for-applications-deployed-in-openshift
 ssh
 TaskRun
 TaskRuns
@@ -35,3 +36,4 @@ VirtualService
 VirtualServices
 webhook
 Webhooks
+www.openshift.com
