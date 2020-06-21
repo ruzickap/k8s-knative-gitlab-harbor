@@ -1,9 +1,9 @@
 module.exports = {
-  title: "Kubernetes + Knative + GitLab + Harbor",
-  description: "Kubernetes + Knative + GitLab + Harbor",
+  title: 'Kubernetes + Knative + GitLab + Harbor',
+  description: 'Kubernetes + Knative + GitLab + Harbor',
   base: '/k8s-knative-gitlab-harbor/',
   head: [
-    ['link', { rel: "icon", href: "https://kubernetes.io/images/favicon.png" }]
+    ['link', { rel: 'icon', href: 'https://kubernetes.io/images/favicon.png' }]
   ],
   themeConfig: {
     displayAllHeaders: true,
@@ -19,7 +19,7 @@ module.exports = {
         items: [
           { text: 'GitLab', link: 'https://gitlab.com' },
           { text: 'Harbor', link: 'https://goharbor.io' },
-          { text: 'Knative', link: 'https://cloud.google.com/knative' },
+          { text: 'Knative', link: 'https://cloud.google.com/knative' }
         ]
       }
     ],
@@ -34,7 +34,7 @@ module.exports = {
       '/part-07/',
       '/part-08/',
       '/part-09/',
-      '/part-10/',
+      '/part-10/'
     ]
   },
   plugins: [
