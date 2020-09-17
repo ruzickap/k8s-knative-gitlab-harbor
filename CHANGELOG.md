@@ -1,10 +1,18 @@
 # Changelog
 
-## v0.0.1 (2020-05-10)
+## [v0.1.0](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.0.1...v0.1.0) (2020-09-17)
 
-- Bump @vuepress/plugin-back-to-top from 1.0.4 to 1.1.0 [`#1`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/1)
-- Bump @vuepress/plugin-medium-zoom from 1.0.4 to 1.1.0 [`#3`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/3)
-- Bump vuepress from 1.0.4 to 1.1.0 [`#2`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/2)
+- Add gh-pages to actions/checkout add use GITHUB_TOKEN with super-linter [`#64`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/64)
+- Disable the linting process for AWS States Language (VALIDATE_STATES) [`#59`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/59)
+- Replace markdown linter [`#50`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/50)
+- Add super-linter + fix related issues [`#46`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/46)
+- Fix GH variables to pass the tests [`#45`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/45)
+- Move to GitHub's Dependabot (version 2) [`#38`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/38)
+- Use shell-linter in latest version [`#33`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/33)
+- CHANGELOG file update [`#28`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/28)
+
+## v0.0.1 (2020-05-11)
+
 - Ignore CHANGELOG.md when doing markdown checks [`a231817`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/a231817b1730cf708f2cf63b8296c81d9b257e76)
 - Prettify user_policy.json [`57b859f`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/57b859f463336232b7006f763074a0671263a297)
 - Add .pre-commit-config.yaml and .release-it.yml to .gitignore [`d07d3c7`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/d07d3c72e3a5aa7fbcb3fdb80d89af2467329b2d)
@@ -50,7 +58,6 @@
 - Allow pods to upload files (application container data) to S3 [`91d5f24`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/91d5f24f574e3135b6f043f0fad3671c8a62c35b)
 - Adding outputs + fix Knative installation [`a53bb61`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/a53bb611f5dbab3dcb3a00dff233a1cc3bb75761)
 - Fix url -&gt; URL [`012ed26`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/012ed26a0fe5b3f49351b21cc55a0bb744428c0a)
-- Merge branch 'master' of github.com:ruzickap/k8s-knative-gitlab-harbor [`cddfa10`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/cddfa106c99045e320e05037209ad43e920c7a88)
 - Adding part-07 - Build and run container image using Knative + Tekton [`0f05377`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/0f05377cdd2a3976c90d1839d25d273dd6602d4e)
 - Knative version increased to 0.9.0, outputs added, deployment controller patch added [`7bc6867`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/7bc68673c441165e500de995a5be1ab676e22ac0)
 - HTTP redirect added to GitHub, GitHub version increased [`2033af0`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/2033af0ce13f8b1b071266a4d7dc4177ed6f3430)
@@ -60,7 +67,6 @@
 - Fix broken link [`a3c6ab7`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/a3c6ab774a57c38beb3bd3d1d74599820ce86140)
 - VuePress upgrade to 1.0.4 [`170392c`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/170392cc06e3bcbe8893a2e2405dbd45134adc5b)
 - Moving from my-test-project -&gt; my-podinfo, sorting helm parameters [`5edd0a4`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/5edd0a487e350e65862529ea49d57097f90c5b77)
-- Add dependabot [`59cd663`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/59cd6638507dc44d230fcaeb9e07ad0fbcae63ac)
 - Fixing package.json + updating Vuepress to 1.0.3 [`85e38a8`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/85e38a8d060e96ef4fa209e0256f07f62d402037)
 - Knative fix (#5163) with README updates [`b41587e`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/b41587e63da5065319ae111706954cff1238edd2)
 - Moving to new Istio version [`ba984a0`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/ba984a0b9d11a473095dbb087f520ae377f5b593)
