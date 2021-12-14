@@ -81,7 +81,7 @@ fi
 
 ## Configure AWS
 
-Authorize to AWS using AWS CLI: [https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+Authorize to AWS using AWS CLI: [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 ```bash
 aws configure
@@ -123,7 +123,7 @@ Output:
 {
   "Policy": {
     "PolicyName": "pruzicka-k8s-mylabs.dev",
-    "PolicyId": "ANPA36ZNO4Q4LPYMWVM2W",
+    "PolicyId": "xxxxxxxxxxxxxxxxxxxx",
     "Arn": "arn:aws:iam::822044714040:policy/pruzicka-k8s-mylabs.dev",
     "Path": "/",
     "DefaultVersionId": "v1",
@@ -154,7 +154,7 @@ Output:
   "User": {
     "Path": "/",
     "UserName": "pruzicka-k8s-mylabs.dev",
-    "UserId": "AIDA36ZNO4Q4GNMSTIAET",
+    "UserId": "xxxxxxxxxxxxxxxxxxxx",
     "Arn": "arn:aws:iam::822044714040:user/pruzicka-k8s-mylabs.dev",
     "CreateDate": "2019-12-27T09:41:27Z"
   }
