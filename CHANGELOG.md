@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.1.1](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.1.0...v0.1.1) (2021-12-20)
+
+- Improve GH Action files [`#92`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/92)
+- Fix linter issues [`#91`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/91)
+- Upgrade GH Actions versions [`#90`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/90)
+- npm update [`#89`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/89)
+- Upgrade action-my-broken-link-checker [`#78`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/78)
+- Ignore CHANGELOG.md from being checked by super-linter [`#74`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/74)
+- Fix My Broken Link Checker parameter [`#67`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/67)
+- Update package-lock.json [`#66`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/66)
+
 ## [v0.1.0](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.0.1...v0.1.0) (2020-09-17)
 
 - Add gh-pages to actions/checkout add use GITHUB_TOKEN with super-linter [`#64`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/64)
@@ -9,7 +20,6 @@
 - Fix GH variables to pass the tests [`#45`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/45)
 - Move to GitHub's Dependabot (version 2) [`#38`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/38)
 - Use shell-linter in latest version [`#33`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/33)
-- CHANGELOG file update [`#28`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/28)
 
 ## v0.0.1 (2020-05-11)
 
