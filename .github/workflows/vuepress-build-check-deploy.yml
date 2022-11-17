@@ -75,7 +75,7 @@ jobs:
         with:
           url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
           pages_path: .
-          cmd_params: '--exclude=(mylabs.dev|https://github.com/ruzickap/podinfo/) --max-connections-per-host=5 --color=always --rate-limit=5 --timeout=20 --header="User-Agent:curl/7.54.0" --skip-tls-verification'
+          cmd_params: '--exclude=(mylabs.dev|https://github.com/ruzickap/podinfo/|https://docs.github.com/) --max-connections-per-host=5 --color=always --rate-limit=5 --timeout=20 --header="User-Agent:curl/7.54.0" --skip-tls-verification'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
