@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "(http|https)://.*mylabs.dev"
+    },
+    {
+      "pattern": "(http|https)://localhost"
+    },
+    {
+      "pattern": "https://github.com/ruzickap/podinfo/.*"
+    }
+  ]
+}
