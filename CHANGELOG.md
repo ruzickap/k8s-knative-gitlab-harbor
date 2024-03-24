@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.1.1...v0.2.0) (2024-03-24)
+
+
+### Features
+
+* **gh:** add default GitHub repo files ([#142](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/142)) ([32ea649](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/32ea649e427fc34b17158f5f82c36af37e9631df))
+* **gh:** add default GitHub repo files ([#144](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/144)) ([a2f7028](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/a2f702861bb9080fcf1ff3aa6d33585948a95f6a))
+* **gh:** add default GitHub repo files ([#149](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/149)) ([3ecacea](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/3ecaceacefb6dd1e82f0f5bd4306fae798edded9))
+* **gha:** unify GHA - renovate, megalinter, markdown, and others ([#140](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/140)) ([09b3c69](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/09b3c69849beaed303a81361c0024f403a704bb6))
+
 ## [v0.1.1](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.1.0...v0.1.1) (2021-12-20)
 
 - Improve GH Action files [`#92`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/92)
