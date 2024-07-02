@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.1.1...v0.2.0) (2024-07-02)
+
+
+### Features
+
+* **gh:** add default GitHub repo files ([#142](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/142)) ([32ea649](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/32ea649e427fc34b17158f5f82c36af37e9631df))
+* **gh:** add default GitHub repo files ([#144](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/144)) ([a2f7028](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/a2f702861bb9080fcf1ff3aa6d33585948a95f6a))
+* **gh:** add default GitHub repo files ([#149](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/149)) ([3ecacea](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/3ecaceacefb6dd1e82f0f5bd4306fae798edded9))
+* **gha:** unify GHA - renovate, megalinter, markdown, and others ([#140](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/140)) ([09b3c69](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/09b3c69849beaed303a81361c0024f403a704bb6))
+* **gha:** update gha + add ignore-unfixed to trivy ([#157](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/157)) ([f955721](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/f955721dea907883c99e912dc570548419967ee2))
+
+
+### Bug Fixes
+
+* add CVE-2024-4068 to .trivyignore.yaml ([#165](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/165)) ([bec89a6](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/bec89a6af13ede54506cef3bfa94b82abc3fd671))
+* **doc:** fix k8s logo url ([#158](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/158)) ([f76ec57](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/f76ec5725a8a96cfd24d70193d331cf94ddfcd09))
+* **url:** exclude package-lock.json from URL checks ([#162](https://github.com/ruzickap/k8s-knative-gitlab-harbor/issues/162)) ([1a674e5](https://github.com/ruzickap/k8s-knative-gitlab-harbor/commit/1a674e50c07435a4189cc5cadd3088730914386a))
+
 ## [v0.1.1](https://github.com/ruzickap/k8s-knative-gitlab-harbor/compare/v0.1.0...v0.1.1) (2021-12-20)
 
 - Improve GH Action files [`#92`](https://github.com/ruzickap/k8s-knative-gitlab-harbor/pull/92)
