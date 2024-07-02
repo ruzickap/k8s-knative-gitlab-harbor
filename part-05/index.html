@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Install GitLab | Kubernetes + Knative + GitLab + Harbor</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="Kubernetes + Knative + GitLab + Harbor">
+    
+    <link rel="preload" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css" as="style"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js" as="script"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/10.f496eaac.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/12.7aed55d0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/13.050c5350.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/14.30343ebc.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/16.cd753f26.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/22.8f730d8b.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/23.1d6373ca.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/28.8647f919.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/29.36e9fab6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/30.f81551c9.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/31.aa5de726.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/32.22ccabcf.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/4.1a6ad45d.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/5.4b4e299e.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/6.88072c68.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/7.f09a9532.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/vendors~docsearch.857e8e87.js">
+    <link rel="stylesheet" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-knative-gitlab-harbor/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="Kubernetes + Knative + GitLab + Harbor" class="logo"> <span class="site-name can-hide">Kubernetes + Knative + GitLab + Harbor</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-knative-gitlab-harbor/" aria-current="page" class="sidebar-link">Kubernetes + Knative + GitLab + Harbor</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#content" class="sidebar-link">Content</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#asciinema" class="sidebar-link">Asciinema</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-01/" class="sidebar-link">Create k8s cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#create-k8s-in-aws" class="sidebar-link">Create K8s in AWS</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-knative-gitlab-harbor/part-03/" class="sidebar-link">Istio + Knative + cert-manager + kubed installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-cert-manager" class="sidebar-link">Install cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#generate-tls-certificate" class="sidebar-link">Generate TLS certificate</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-kubed" class="sidebar-link">Install kubed</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-04/" class="sidebar-link">Install Harbor</a></li><li><a href="/k8s-knative-gitlab-harbor/part-05/" aria-current="page" class="active sidebar-link">Install GitLab</a></li><li><a href="/k8s-knative-gitlab-harbor/part-06/" class="sidebar-link">Install Knative</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-06/#enable-automatic-tls-certificate-provisioning-for-knative" class="sidebar-link">Enable automatic TLS certificate provisioning for Knative</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-07/" class="sidebar-link">Build and run container image using Knative + Tekton</a></li><li><a href="/k8s-knative-gitlab-harbor/part-08/" class="sidebar-link">Automated deployment with Tekton</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#fork-podinfo-application" class="sidebar-link">Fork podinfo application</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#create-tekton-triggers-configuration" class="sidebar-link">Create Tekton Triggers configuration</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#change-the-source-code-of-the-app" class="sidebar-link">Change the source code of the app</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-09/" class="sidebar-link">Knative operations</a></li><li><a href="/k8s-knative-gitlab-harbor/part-10/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="install-gitlab"><a href="#install-gitlab" class="header-anchor">#</a> Install GitLab</h1> <p>Add GitLab repository:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> gitlab https://charts.gitlab.io/
+helm repo update
+</code></pre></div><p>Create <code>gitlab</code> namespaces with secrets needed for GitLab
+(certificates and passwords):</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create namespace gitlab
+kubectl create secret generic gitlab-initial-root-password --from-literal<span class="token operator">=</span>password<span class="token operator">=</span><span class="token string">&quot;admin123&quot;</span> <span class="token parameter variable">-n</span> gitlab
+kubectl create secret generic custom-ca --from-file<span class="token operator">=</span>unique_name<span class="token operator">=</span>tmp/fakelerootx1.pem <span class="token parameter variable">-n</span> gitlab
+</code></pre></div><p>Create Istio Gateways and VirtualServices to allow accessing GitLab from
+&quot;outside&quot;:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gitlab-gateway
+  namespace: gitlab
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 22
+      name: ssh-gitlab
+      protocol: TCP
+    hosts:
+    - gitlab.<span class="token variable">${MY_DOMAIN}</span>
+  - port:
+      number: 80
+      name: http-gitlab
+      protocol: HTTP
+    hosts:
+    - gitlab.<span class="token variable">${MY_DOMAIN}</span>
+    - minio.<span class="token variable">${MY_DOMAIN}</span>
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https-gitlab
+      protocol: HTTPS
+    hosts:
+    - gitlab.<span class="token variable">${MY_DOMAIN}</span>
+    - minio.<span class="token variable">${MY_DOMAIN}</span>
+    tls:
+      credentialName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gitlab-ssh-virtual-service
+  namespace: gitlab
+spec:
+  hosts:
+  - gitlab.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - gitlab-gateway
+  tcp:
+  - match:
+    - port: 22
+    route:
+    - destination:
+        host: gitlab-gitlab-shell.gitlab.svc.cluster.local
+        port:
+          number: 22
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gitlab-http-virtual-service
+  namespace: gitlab
+spec:
+  hosts:
+  - gitlab.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - gitlab-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /admin/sidekiq
+    route:
+    - destination:
+        host: gitlab-unicorn.gitlab.svc.cluster.local
+        port:
+          number: 8080
+  - route:
+    - destination:
+        host: gitlab-unicorn.gitlab.svc.cluster.local
+        port:
+          number: 8181
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gitlab-minio-virtual-service
+  namespace: gitlab
+spec:
+  hosts:
+  - minio.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - gitlab-gateway
+  http:
+  - route:
+    - destination:
+        host: gitlab-minio-svc.gitlab.svc.cluster.local
+        port:
+          number: 9000
+EOF</span>
+</code></pre></div><p>Install GitLab using Helm:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm <span class="token function">install</span> gitlab gitlab/gitlab <span class="token parameter variable">--namespace</span> gitlab <span class="token parameter variable">--wait</span> <span class="token parameter variable">--version</span> <span class="token number">2.6</span>.0 <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">certmanager.install</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gitlab-runner.install<span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">gitlab.gitaly.persistence.size</span><span class="token operator">=</span>1Gi <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">gitlab.unicorn.ingress.enabled</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.ci_archive_traces_cron_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;17 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.expire_build_artifacts_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;50 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.pipeline_schedule_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;19 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.repository_archive_cache_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;0 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.repository_check_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;20 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.cron_jobs.stuck_ci_jobs_worker.cron</span><span class="token operator">=</span><span class="token string">&quot;0 * * * *&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.gravatar.plainUrl</span><span class="token operator">=</span><span class="token string">&quot;https://www.gravatar.com/avatar/%{hash}?s=%{size}&amp;d=identicon&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.appConfig.gravatar.sslUrl</span><span class="token operator">=</span><span class="token string">&quot;https://secure.gravatar.com/avatar/%{hash}?s=%{size}&amp;d=identicon&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> global.certificates.customCAs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.secret<span class="token operator">=</span>custom-ca <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.edition</span><span class="token operator">=</span>ce <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.hosts.domain</span><span class="token operator">=</span><span class="token variable">${MY_DOMAIN}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.ingress.configureCertmanager</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.ingress.enabled</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.initialRootPassword.secret</span><span class="token operator">=</span>gitlab-initial-root-password <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">minio.persistence.size</span><span class="token operator">=</span>5Gi <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> nginx-ingress.enabled<span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">postgresql.persistence.size</span><span class="token operator">=</span>1Gi <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">prometheus.install</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">redis.persistence.size</span><span class="token operator">=</span>1Gi <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">registry.enabled</span><span class="token operator">=</span>false
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME: gitlab
+LAST DEPLOYED: Fri Dec 27 10:57:01 2019
+NAMESPACE: gitlab
+STATUS: deployed
+REVISION: 1
+NOTES:
+WARNING: Automatic TLS certificate generation with cert-manager is disabled and no TLS certificates were provided. Self-signed certificates were generated.
+
+You may retrieve the CA root for these certificates from the `gitlab-wildcard-tls-ca` secret, via the following command. It can then be imported to a web browser or system store.
+
+    kubectl get secret gitlab-wildcard-tls-ca -ojsonpath='{.data.cfssl_ca}' | base64 --decode &gt; gitlab.mylabs.dev.ca.pem
+
+If you do not wish to use self-signed certificates, please set the following properties:
+  - global.ingress.tls.secretName
+  OR
+  - gitlab.unicorn.ingress.tls.secretName
+  - minio.ingress.tls.secretName
+</code></pre></div><p>Try to access the GitLab using the URL <a href="https://gitlab.mylabs.dev" target="_blank" rel="noopener noreferrer">https://gitlab.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+with following credentials:</p> <ul><li>Username: <code>root</code></li> <li>Password: <code>admin123</code></li></ul> <p>Create Personal Access Token <code>1234567890</code> for user <code>root</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">UNICORN_POD</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl get pods <span class="token parameter variable">-n</span> gitlab <span class="token parameter variable">-l</span><span class="token operator">=</span>app<span class="token operator">=</span>unicorn <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">&quot;{.items[0].metadata.name}&quot;</span><span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token variable">${UNICORN_POD}</span>
+kubectl <span class="token builtin class-name">exec</span> <span class="token parameter variable">-n</span> gitlab <span class="token parameter variable">-it</span> <span class="token variable">$UNICORN_POD</span> <span class="token parameter variable">-c</span> unicorn -- /bin/bash <span class="token parameter variable">-c</span> <span class="token string">&quot;
+cd /srv/gitlab;
+bin/rails r <span class="token entity" title="\&quot;">\&quot;</span>
+token_digest = Gitlab::CryptoHelper.sha256 <span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>1234567890<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>;
+token=PersonalAccessToken.create!(name: <span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>Full Access<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>, scopes: [:api], user: User.where(id: 1).first, token_digest: token_digest);
+token.save!
+<span class="token entity" title="\&quot;">\&quot;</span>;
+&quot;</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>gitlab-unicorn-566c465dc4-4dwdz
+</code></pre></div><p>Create new user <code>myuser</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GITLAB_USER_ID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">&quot;Content-type: application/json&quot;</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;PRIVATE-TOKEN: 1234567890&quot;</span> https://gitlab.$<span class="token punctuation">{</span>MY_DOMAIN<span class="token punctuation">}</span>/api/v4/users <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token string">&quot;{
+  <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>myuser<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>username<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>myuser<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>password<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>myuser_password<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>email<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>myuser@<span class="token variable">${MY_DOMAIN}</span><span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>skip_confirmation<span class="token entity" title="\&quot;">\&quot;</span>: true
+}&quot;</span> <span class="token operator">|</span> jq <span class="token string">&quot;.id&quot;</span><span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token variable">${GITLAB_USER_ID}</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>2
+</code></pre></div><p>Create a personal access token for user <code>myuser</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl <span class="token builtin class-name">exec</span> <span class="token parameter variable">-n</span> gitlab <span class="token parameter variable">-it</span> <span class="token variable">$UNICORN_POD</span> <span class="token parameter variable">-c</span> unicorn -- /bin/bash <span class="token parameter variable">-c</span> <span class="token string">&quot;
+cd /srv/gitlab;
+bin/rails r <span class="token entity" title="\&quot;">\&quot;</span>
+token_digest = Gitlab::CryptoHelper.sha256 <span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>0987654321<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>;
+token=PersonalAccessToken.create!(name: <span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>Full Access<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\&quot;</span>, scopes: [:api], user: User.where(id: <span class="token variable">${GITLAB_USER_ID}</span>).first, token_digest: token_digest);
+token.save!
+<span class="token entity" title="\&quot;">\&quot;</span>;
+&quot;</span>
+</code></pre></div><p>Create Impersonation token for <code>myuser</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GILAB_MYUSER_TOKEN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">&quot;Content-type: application/json&quot;</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;PRIVATE-TOKEN: 1234567890&quot;</span> https://gitlab.$<span class="token punctuation">{</span>MY_DOMAIN<span class="token punctuation">}</span>/api/v4/users/$<span class="token punctuation">{</span>GITLAB_USER_ID<span class="token punctuation">}</span>/impersonation_tokens <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token string">&quot;{
+  <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>mytoken<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>scopes<span class="token entity" title="\&quot;">\&quot;</span>: [<span class="token entity" title="\&quot;">\&quot;</span>api<span class="token entity" title="\&quot;">\&quot;</span>]
+}&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.token&quot;</span><span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token variable">${GILAB_MYUSER_TOKEN}</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>t_dJwRNpVkdsxWzs3Yv3
+</code></pre></div><p>Create SSH key which will be imported to GitLab:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>ssh-keygen <span class="token parameter variable">-t</span> ed25519 <span class="token parameter variable">-f</span> tmp/id_rsa_gitlab <span class="token parameter variable">-q</span> <span class="token parameter variable">-N</span> <span class="token string">&quot;&quot;</span> <span class="token parameter variable">-C</span> <span class="token string">&quot;my_ssh_key@mylabs.dev&quot;</span>
+</code></pre></div><p>Add ssh key to the <code>myuser</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> <span class="token parameter variable">-sk</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-F</span> <span class="token string">&quot;private_token=<span class="token variable">${GILAB_MYUSER_TOKEN}</span>&quot;</span> https://gitlab.<span class="token variable">${MY_DOMAIN}</span>/api/v4/user/keys <span class="token parameter variable">-F</span> <span class="token string">&quot;title=my_ssh_key&quot;</span> <span class="token parameter variable">-F</span> <span class="token string">&quot;key=<span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> tmp/id_rsa_gitlab.pub<span class="token variable">)</span></span>&quot;</span> <span class="token operator">|</span> jq
+</code></pre></div><p>Output:</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;title&quot;</span><span class="token operator">:</span> <span class="token string">&quot;my_ssh_key&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;key&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKH2+gqsWrziaAmzGumc/frT0EBMSrXSP0MT/jRcKwtm my_ssh_key@mylabs.dev&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;created_at&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2019-12-27T10:01:45.403Z&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Create new project:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">PROJECT_ID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">&quot;Content-type: application/json&quot;</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;PRIVATE-TOKEN: 1234567890&quot;</span> https://gitlab.$<span class="token punctuation">{</span>MY_DOMAIN<span class="token punctuation">}</span>/api/v4/projects/user/$<span class="token punctuation">{</span>GITLAB_USER_ID<span class="token punctuation">}</span> <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token string">&quot;{
+  <span class="token entity" title="\&quot;">\&quot;</span>user_id<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span><span class="token variable">${GITLAB_USER_ID}</span><span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>my-podinfo<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>description<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>My Test Project<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>wiki_access_level<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>disabled<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>issues_access_level<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>disabled<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>builds_access_level<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>disabled<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>snippets_access_level<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>disabled<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>container-registry-enabled<span class="token entity" title="\&quot;">\&quot;</span>: false,
+  <span class="token entity" title="\&quot;">\&quot;</span>visibility<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>public<span class="token entity" title="\&quot;">\&quot;</span>
+}&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.id&quot;</span><span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token variable">${PROJECT_ID}</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>1
+</code></pre></div><p>Clone the <a href="https://github.com/stefanprodan/podinfo" target="_blank" rel="noopener noreferrer">podinfo<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> project and push
+it to the newly created git repository <code>my-podinfo</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_SSH_COMMAND</span><span class="token operator">=</span><span class="token string">&quot;ssh -i <span class="token environment constant">$PWD</span>/tmp/id_rsa_gitlab -o UserKnownHostsFile=/dev/null&quot;</span>
+<span class="token function">git</span> clone <span class="token parameter variable">--bare</span> https://github.com/stefanprodan/podinfo tmp/podinfo
+<span class="token function">git</span> <span class="token parameter variable">-C</span> tmp/podinfo push <span class="token parameter variable">--mirror</span> git@gitlab.<span class="token variable">${MY_DOMAIN}</span>:myuser/my-podinfo.git
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> tmp/podinfo
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>loning into bare repository 'tmp/podinfo'...
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 5266 (delta 0), reused 3 (delta 0), pack-reused 5256
+Receiving objects: 100% (5266/5266), 9.52 MiB | 1.28 MiB/s, done.
+Resolving deltas: 100% (2342/2342), done.
+Warning: Permanently added 'gitlab.mylabs.dev,18.184.227.16' (ECDSA) to the list of known hosts.
+Enumerating objects: 5266, done.
+Counting objects: 100% (5266/5266), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2544/2544), done.
+Writing objects: 100% (5266/5266), 9.52 MiB | 6.95 MiB/s, done.
+Total 5266 (delta 2342), reused 5266 (delta 2342)
+remote: Resolving deltas: 100% (2342/2342), done.
+remote:
+remote: To create a merge request for gh-pages, visit:
+remote:   https://gitlab.mylabs.dev/myuser/my-podinfo/merge_requests/new?merge_request%5Bsource_branch%5D=gh-pages
+remote:
+remote: To create a merge request for v0.x, visit:
+remote:   https://gitlab.mylabs.dev/myuser/my-podinfo/merge_requests/new?merge_request%5Bsource_branch%5D=v0.x
+remote:
+remote: To create a merge request for v1.x, visit:
+remote:   https://gitlab.mylabs.dev/myuser/my-podinfo/merge_requests/new?merge_request%5Bsource_branch%5D=v1.x
+remote:
+remote: To create a merge request for v3.x, visit:
+remote:   https://gitlab.mylabs.dev/myuser/my-podinfo/merge_requests/new?merge_request%5Bsource_branch%5D=v3.x
+remote:
+To gitlab.mylabs.dev:myuser/my-podinfo.git
+ * [new branch]      gh-pages -&gt; gh-pages
+ * [new branch]      master -&gt; master
+ * [new branch]      v0.x -&gt; v0.x
+ * [new branch]      v1.x -&gt; v1.x
+ * [new branch]      v3.x -&gt; v3.x
+ * [new tag]         0.2.2 -&gt; 0.2.2
+ * [new tag]         2.0.0 -&gt; 2.0.0
+ * [new tag]         2.0.1 -&gt; 2.0.1
+ * [new tag]         2.0.2 -&gt; 2.0.2
+ * [new tag]         2.1.0 -&gt; 2.1.0
+ * [new tag]         2.1.1 -&gt; 2.1.1
+ * [new tag]         2.1.2 -&gt; 2.1.2
+ * [new tag]         2.1.3 -&gt; 2.1.3
+ * [new tag]         3.0.0 -&gt; 3.0.0
+ * [new tag]         3.1.0 -&gt; 3.1.0
+ * [new tag]         3.1.1 -&gt; 3.1.1
+ * [new tag]         3.1.2 -&gt; 3.1.2
+ * [new tag]         3.1.3 -&gt; 3.1.3
+ * [new tag]         3.1.4 -&gt; 3.1.4
+ * [new tag]         3.1.5 -&gt; 3.1.5
+ * [new tag]         flux-floral-pine-16 -&gt; flux-floral-pine-16
+ * [new tag]         flux-thawing-star-34 -&gt; flux-thawing-star-34
+ * [new tag]         v0.4.0 -&gt; v0.4.0
+ * [new tag]         v0.5.0 -&gt; v0.5.0
+ * [new tag]         v1.0.0 -&gt; v1.0.0
+ * [new tag]         v1.1.0 -&gt; v1.1.0
+ * [new tag]         v1.1.1 -&gt; v1.1.1
+ * [new tag]         v1.2.0 -&gt; v1.2.0
+ * [new tag]         v1.2.1 -&gt; v1.2.1
+ * [new tag]         v1.3.0 -&gt; v1.3.0
+ * [new tag]         v1.3.1 -&gt; v1.3.1
+ * [new tag]         v1.4.0 -&gt; v1.4.0
+ * [new tag]         v1.4.1 -&gt; v1.4.1
+ * [new tag]         v1.4.2 -&gt; v1.4.2
+ * [new tag]         v1.6.0 -&gt; v1.6.0
+ * [new tag]         v1.7.0 -&gt; v1.7.0
+ * [new tag]         v1.8.0 -&gt; v1.8.0
+</code></pre></div><p>GitLab Screenshot:</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/GitLab.dd7e0dbb.png" alt="GitLab" title="GitLab"></p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor/edit/master/docs/part-05/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:11:02 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-knative-gitlab-harbor/part-04/" class="prev">
+        Install Harbor
+      </a></span> <span class="next"><a href="/k8s-knative-gitlab-harbor/part-06/">
+        Install Knative
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Install Knative | Kubernetes + Knative + GitLab + Harbor</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="Kubernetes + Knative + GitLab + Harbor">
+    
+    <link rel="preload" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css" as="style"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js" as="script"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/10.f496eaac.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/12.7aed55d0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/13.050c5350.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/14.30343ebc.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/16.cd753f26.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/22.8f730d8b.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/23.1d6373ca.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/28.8647f919.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/29.36e9fab6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/30.f81551c9.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/31.aa5de726.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/32.22ccabcf.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/4.1a6ad45d.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/5.4b4e299e.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/6.88072c68.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/7.f09a9532.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/vendors~docsearch.857e8e87.js">
+    <link rel="stylesheet" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-knative-gitlab-harbor/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="Kubernetes + Knative + GitLab + Harbor" class="logo"> <span class="site-name can-hide">Kubernetes + Knative + GitLab + Harbor</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-knative-gitlab-harbor/" aria-current="page" class="sidebar-link">Kubernetes + Knative + GitLab + Harbor</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#content" class="sidebar-link">Content</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#asciinema" class="sidebar-link">Asciinema</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-01/" class="sidebar-link">Create k8s cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#create-k8s-in-aws" class="sidebar-link">Create K8s in AWS</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-knative-gitlab-harbor/part-03/" class="sidebar-link">Istio + Knative + cert-manager + kubed installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-cert-manager" class="sidebar-link">Install cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#generate-tls-certificate" class="sidebar-link">Generate TLS certificate</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-kubed" class="sidebar-link">Install kubed</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-04/" class="sidebar-link">Install Harbor</a></li><li><a href="/k8s-knative-gitlab-harbor/part-05/" class="sidebar-link">Install GitLab</a></li><li><a href="/k8s-knative-gitlab-harbor/part-06/" aria-current="page" class="active sidebar-link">Install Knative</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-06/#enable-automatic-tls-certificate-provisioning-for-knative" class="sidebar-link">Enable automatic TLS certificate provisioning for Knative</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-07/" class="sidebar-link">Build and run container image using Knative + Tekton</a></li><li><a href="/k8s-knative-gitlab-harbor/part-08/" class="sidebar-link">Automated deployment with Tekton</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#fork-podinfo-application" class="sidebar-link">Fork podinfo application</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#create-tekton-triggers-configuration" class="sidebar-link">Create Tekton Triggers configuration</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#change-the-source-code-of-the-app" class="sidebar-link">Change the source code of the app</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-09/" class="sidebar-link">Knative operations</a></li><li><a href="/k8s-knative-gitlab-harbor/part-10/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="install-knative"><a href="#install-knative" class="header-anchor">#</a> Install Knative</h1> <p>Set Knative version variable:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">KNATIVE_VERSION</span><span class="token operator">=</span><span class="token string">&quot;v0.11.0&quot;</span>
+</code></pre></div><p>Install Knative:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">--selector</span> knative.dev/crd-install<span class="token operator">=</span>true <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/serving/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/serving.yaml <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/eventing/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/release.yaml <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/serving/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/monitoring.yaml
+kubectl apply <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/serving/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/serving.yaml <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/eventing/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/release.yaml <span class="token punctuation">\</span>
+   <span class="token parameter variable">--filename</span> https://github.com/knative/serving/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/monitoring.yaml
+<span class="token function">sleep</span> <span class="token number">60</span>
+</code></pre></div><p>Install Tekton with Dashboard (do not increase Tekton version above 0.8.0):</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">--filename</span> https://github.com/tektoncd/pipeline/releases/download/v0.8.0/release.yaml
+kubectl apply <span class="token parameter variable">--filename</span> https://github.com/tektoncd/dashboard/releases/download/v0.3.0/dashboard-latest-release.yaml
+</code></pre></div><p>Install Tekton Triggers:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">--filename</span> https://github.com/tektoncd/triggers/releases/download/v0.1.0/release.yaml
+</code></pre></div><p>Export Knative services (<a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">Prometheus<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and
+<a href="https://grafana.com/" target="_blank" rel="noopener noreferrer">Grafana<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>) to be visible externally:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: knative-services-gateway
+  namespace: knative-monitoring
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-knative-services
+      protocol: HTTP
+    hosts:
+    - knative-grafana.<span class="token variable">${MY_DOMAIN}</span>
+    - knative-prometheus.<span class="token variable">${MY_DOMAIN}</span>
+    - knative-tekton.<span class="token variable">${MY_DOMAIN}</span>
+  - port:
+      number: 443
+      name: https-knative-services
+      protocol: HTTPS
+    hosts:
+    - knative-grafana.<span class="token variable">${MY_DOMAIN}</span>
+    - knative-prometheus.<span class="token variable">${MY_DOMAIN}</span>
+    - knative-tekton.<span class="token variable">${MY_DOMAIN}</span>
+    tls:
+      credentialName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-virtual-service
+  namespace: knative-monitoring
+spec:
+  hosts:
+  - &quot;knative-grafana.<span class="token variable">${MY_DOMAIN}</span>&quot;
+  gateways:
+  - knative-services-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana.knative-monitoring.svc.cluster.local
+        port:
+          number: 30802
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-virtual-service
+  namespace: knative-monitoring
+spec:
+  hosts:
+  - &quot;knative-prometheus.<span class="token variable">${MY_DOMAIN}</span>&quot;
+  gateways:
+  - knative-services-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus-system-np.knative-monitoring.svc.cluster.local
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tekton-virtual-service
+  namespace: knative-monitoring
+spec:
+  hosts:
+  - &quot;knative-tekton.<span class="token variable">${MY_DOMAIN}</span>&quot;
+  gateways:
+  - knative-services-gateway
+  http:
+  - route:
+    - destination:
+        host: tekton-dashboard.tekton-pipelines.svc.cluster.local
+        port:
+          number: 9097
+EOF</span>
+</code></pre></div><p>Tekton Dashboard:</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/Tekton_Dashboard.258cb264.png" alt="Tekton Dashboard" title="Tekton Dashboard"></p> <p>Set up a custom domain for Knative:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-domain
+  namespace: knative-serving
+data:
+  <span class="token variable">${MY_DOMAIN}</span>: &quot;&quot;
+EOF</span>
+</code></pre></div><p>Changing the controller deployment is needed if you are not using the valid
+certificates (self-signed):</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span> <span class="token operator">=</span> <span class="token string">&quot;staging&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  kubectl <span class="token parameter variable">--namespace</span> knative-serving create secret generic customca --from-file<span class="token operator">=</span>customca.crt<span class="token operator">=</span>tmp/fakelerootx1.pem
+  kubectl patch deployment controller <span class="token parameter variable">--namespace</span> knative-serving <span class="token parameter variable">--patch</span> <span class="token string">&quot;
+    {
+        <span class="token entity" title="\&quot;">\&quot;</span>spec<span class="token entity" title="\&quot;">\&quot;</span>: {
+            <span class="token entity" title="\&quot;">\&quot;</span>template<span class="token entity" title="\&quot;">\&quot;</span>: {
+                <span class="token entity" title="\&quot;">\&quot;</span>spec<span class="token entity" title="\&quot;">\&quot;</span>: {
+                    <span class="token entity" title="\&quot;">\&quot;</span>containers<span class="token entity" title="\&quot;">\&quot;</span>: [{
+                        <span class="token entity" title="\&quot;">\&quot;</span>env<span class="token entity" title="\&quot;">\&quot;</span>: [{
+                            <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>SSL_CERT_DIR<span class="token entity" title="\&quot;">\&quot;</span>,
+                            <span class="token entity" title="\&quot;">\&quot;</span>value<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>/etc/customca<span class="token entity" title="\&quot;">\&quot;</span>
+                        }],
+                        <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>controller<span class="token entity" title="\&quot;">\&quot;</span>,
+                        <span class="token entity" title="\&quot;">\&quot;</span>volumeMounts<span class="token entity" title="\&quot;">\&quot;</span>: [{
+                            <span class="token entity" title="\&quot;">\&quot;</span>mountPath<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>/etc/customca<span class="token entity" title="\&quot;">\&quot;</span>,
+                            <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>customca<span class="token entity" title="\&quot;">\&quot;</span>
+                        }]
+                    }],
+                    <span class="token entity" title="\&quot;">\&quot;</span>volumes<span class="token entity" title="\&quot;">\&quot;</span>: [{
+                        <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>customca<span class="token entity" title="\&quot;">\&quot;</span>,
+                        <span class="token entity" title="\&quot;">\&quot;</span>secret<span class="token entity" title="\&quot;">\&quot;</span>: {
+                            <span class="token entity" title="\&quot;">\&quot;</span>defaultMode<span class="token entity" title="\&quot;">\&quot;</span>: 420,
+                            <span class="token entity" title="\&quot;">\&quot;</span>secretName<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>customca<span class="token entity" title="\&quot;">\&quot;</span>
+                        }
+                    }]
+                }
+            }
+        }
+    }&quot;</span>
+<span class="token keyword">fi</span>
+</code></pre></div><h2 id="enable-automatic-tls-certificate-provisioning-for-knative"><a href="#enable-automatic-tls-certificate-provisioning-for-knative" class="header-anchor">#</a> Enable automatic TLS certificate provisioning for Knative</h2> <p>Install <code>networking-certmanager</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">--filename</span> https://github.com/knative/serving/releases/download/<span class="token variable">${KNATIVE_VERSION}</span>/serving-cert-manager.yaml
+</code></pre></div><p>Update your <code>config-certmanager</code> ConfigMap in the <code>knative-serving</code> namespace to
+define your new ClusterIssuer configuration and your your DNS provider:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-certmanager
+  namespace: knative-serving
+  labels:
+    networking.knative.dev/certificate-provider: cert-manager
+data:
+  issuerRef: |
+    kind: ClusterIssuer
+    name: letsencrypt-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>-dns
+  solverConfig: |
+    dns01:
+      provider: aws-route53
+EOF</span>
+</code></pre></div><p>Update the <code>config-network</code> ConfigMap in the <code>knative-serving</code> namespace to enable
+<code>autoTLS</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-network
+  namespace: knative-serving
+data:
+  autoTLS: Enabled
+  httpProtocol: Enabled
+EOF</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor/edit/master/docs/part-06/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:11:02 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-knative-gitlab-harbor/part-05/" class="prev">
+        Install GitLab
+      </a></span> <span class="next"><a href="/k8s-knative-gitlab-harbor/part-07/">
+        Build and run container image using Knative + Tekton
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js" defer></script>
+  </body>
+</html>

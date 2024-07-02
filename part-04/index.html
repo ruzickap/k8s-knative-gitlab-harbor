@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Install Harbor | Kubernetes + Knative + GitLab + Harbor</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="Kubernetes + Knative + GitLab + Harbor">
+    
+    <link rel="preload" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css" as="style"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js" as="script"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/10.f496eaac.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/12.7aed55d0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/13.050c5350.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/14.30343ebc.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/16.cd753f26.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/22.8f730d8b.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/23.1d6373ca.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/28.8647f919.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/29.36e9fab6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/30.f81551c9.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/31.aa5de726.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/32.22ccabcf.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/4.1a6ad45d.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/5.4b4e299e.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/6.88072c68.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/7.f09a9532.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/vendors~docsearch.857e8e87.js">
+    <link rel="stylesheet" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-knative-gitlab-harbor/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="Kubernetes + Knative + GitLab + Harbor" class="logo"> <span class="site-name can-hide">Kubernetes + Knative + GitLab + Harbor</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-knative-gitlab-harbor/" aria-current="page" class="sidebar-link">Kubernetes + Knative + GitLab + Harbor</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#content" class="sidebar-link">Content</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#asciinema" class="sidebar-link">Asciinema</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-01/" class="sidebar-link">Create k8s cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#create-k8s-in-aws" class="sidebar-link">Create K8s in AWS</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-knative-gitlab-harbor/part-03/" class="sidebar-link">Istio + Knative + cert-manager + kubed installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-cert-manager" class="sidebar-link">Install cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#generate-tls-certificate" class="sidebar-link">Generate TLS certificate</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-kubed" class="sidebar-link">Install kubed</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-04/" aria-current="page" class="active sidebar-link">Install Harbor</a></li><li><a href="/k8s-knative-gitlab-harbor/part-05/" class="sidebar-link">Install GitLab</a></li><li><a href="/k8s-knative-gitlab-harbor/part-06/" class="sidebar-link">Install Knative</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-06/#enable-automatic-tls-certificate-provisioning-for-knative" class="sidebar-link">Enable automatic TLS certificate provisioning for Knative</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-07/" class="sidebar-link">Build and run container image using Knative + Tekton</a></li><li><a href="/k8s-knative-gitlab-harbor/part-08/" class="sidebar-link">Automated deployment with Tekton</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#fork-podinfo-application" class="sidebar-link">Fork podinfo application</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#create-tekton-triggers-configuration" class="sidebar-link">Create Tekton Triggers configuration</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#change-the-source-code-of-the-app" class="sidebar-link">Change the source code of the app</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-09/" class="sidebar-link">Knative operations</a></li><li><a href="/k8s-knative-gitlab-harbor/part-10/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="install-harbor"><a href="#install-harbor" class="header-anchor">#</a> Install Harbor</h1> <p><img src="https://raw.githubusercontent.com/cncf/artwork/c33a8386bce4eabc36e1d4972e0996db4630037b/projects/harbor/horizontal/color/harbor-horizontal-color.svg?sanitize=true" alt="Harbor logo" title="Harbor logo"></p> <p>Label Harbor namespace and copy there the secret with certificates signed by
+Let's Encrypt certificate:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create namespace harbor
+kubectl label namespace harbor <span class="token assign-left variable">app</span><span class="token operator">=</span>kubed
+</code></pre></div><p>Create Istio Gateways and VirtualServices to allow accessing Harbor from
+&quot;outside&quot;:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: harbor-gateway
+  namespace: harbor
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-harbor
+      protocol: HTTP
+    hosts:
+    - harbor.<span class="token variable">${MY_DOMAIN}</span>
+  - port:
+      number: 443
+      name: https-harbor
+      protocol: HTTPS
+    hosts:
+    - harbor.<span class="token variable">${MY_DOMAIN}</span>
+    - notary.<span class="token variable">${MY_DOMAIN}</span>
+    tls:
+      mode: PASSTHROUGH
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-http-virtual-service
+  namespace: harbor
+spec:
+  hosts:
+  - harbor.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - harbor-gateway
+  http:
+  - match:
+    - port: 80
+    route:
+    - destination:
+        host: harbor.harbor.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-https-virtual-service
+  namespace: harbor
+spec:
+  hosts:
+  - harbor.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - harbor-gateway
+  tls:
+  - match:
+    - port: 443
+      sniHosts:
+      - harbor.<span class="token variable">${MY_DOMAIN}</span>
+    route:
+    - destination:
+        host: harbor.harbor.svc.cluster.local
+        port:
+          number: 443
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-notary-virtual-service
+  namespace: harbor
+spec:
+  hosts:
+  - notary.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - harbor-gateway
+  tls:
+  - match:
+    - port: 443
+      sniHosts:
+      - notary.<span class="token variable">${MY_DOMAIN}</span>
+    route:
+    - destination:
+        host: harbor.harbor.svc.cluster.local
+        port:
+          number: 4443
+EOF</span>
+</code></pre></div><p>Add Harbor Helm repository:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> harbor https://helm.goharbor.io
+helm repo update
+</code></pre></div><p>Install Harbor using Helm:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm <span class="token function">install</span> harbor harbor/harbor <span class="token parameter variable">--namespace</span> harbor <span class="token parameter variable">--version</span> v1.2.3 <span class="token parameter variable">--wait</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">expose.tls.enabled</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">expose.tls.secretName</span><span class="token operator">=</span>ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">expose.type</span><span class="token operator">=</span>clusterIP <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">externalURL</span><span class="token operator">=</span>https://harbor.<span class="token variable">${MY_DOMAIN}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">harborAdminPassword</span><span class="token operator">=</span>admin <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">persistence.enabled</span><span class="token operator">=</span>false
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME: harbor
+LAST DEPLOYED: Fri Dec 27 10:54:23 2019
+NAMESPACE: harbor
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Please wait for several minutes for Harbor deployment to complete.
+Then you should be able to visit the Harbor portal at https://harbor.mylabs.dev.
+For more details, please visit https://github.com/goharbor/harbor.
+</code></pre></div><p>Open the <a href="https://harbor.mylabs.dev" target="_blank" rel="noopener noreferrer">https://harbor.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>:</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/harbor_login_page.703b5e90.png" alt="Harbor login page" title="Harbor login page"></p> <p>Log in:</p> <ul><li>User: <code>admin</code></li> <li>Password: <code>admin</code></li></ul> <p>You should see the Web UI:</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/harbor_projects.338db00b.png" alt="Harbor" title="Harbor"></p> <p>Create new robot account for <code>library</code> project:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">HARBOR_ROBOT_TOKEN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-u</span> <span class="token string">&quot;admin:admin&quot;</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">&quot;Content-Type: application/json&quot;</span> <span class="token string">&quot;https://harbor.<span class="token variable">${MY_DOMAIN}</span>/api/projects/1/robots&quot;</span> <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token string">&quot;{
+  <span class="token entity" title="\&quot;">\&quot;</span>name<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>myrobot<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>description<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>Robot account with Push/Pull access to library project<span class="token entity" title="\&quot;">\&quot;</span>,
+  <span class="token entity" title="\&quot;">\&quot;</span>access<span class="token entity" title="\&quot;">\&quot;</span>: [
+    {
+      <span class="token entity" title="\&quot;">\&quot;</span>resource<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>/project/1/repository<span class="token entity" title="\&quot;">\&quot;</span>,
+      <span class="token entity" title="\&quot;">\&quot;</span>action<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>push<span class="token entity" title="\&quot;">\&quot;</span>
+    }
+  ]
+}&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.token&quot;</span><span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token variable">${HARBOR_ROBOT_TOKEN}</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>eyJhbGciO .... oOFJvwidsQ
+</code></pre></div><p>Enable automated vulnerability scan after each &quot;image push&quot; to the project
+<code>library</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-u</span> <span class="token string">&quot;admin:admin&quot;</span> <span class="token parameter variable">-X</span> PUT <span class="token string">&quot;https://harbor.<span class="token variable">${MY_DOMAIN}</span>/api/projects/1&quot;</span> <span class="token parameter variable">-H</span>  <span class="token string">&quot;Content-Type: application/json&quot;</span> <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token string">&quot;{
+  <span class="token entity" title="\&quot;">\&quot;</span>metadata<span class="token entity" title="\&quot;">\&quot;</span>: {
+    <span class="token entity" title="\&quot;">\&quot;</span>auto_scan<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>true<span class="token entity" title="\&quot;">\&quot;</span>
+  }
+}&quot;</span>
+</code></pre></div><p>Test Harbor functionality by uploading docker image (optional):</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span> <span class="token operator">=</span> <span class="token string">&quot;staging&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token builtin class-name">export</span> <span class="token assign-left variable">SSL_CERT_FILE</span><span class="token operator">=</span><span class="token environment constant">$PWD</span>/tmp/fakelerootx1.pem
+<span class="token keyword">fi</span>
+
+<span class="token function">docker</span> pull gcr.io/kuar-demo/kuard-amd64:blue
+
+<span class="token function">docker</span> tag gcr.io/kuar-demo/kuard-amd64:blue harbor.<span class="token variable">${MY_DOMAIN}</span>/library/kuard-amd64:blue
+<span class="token builtin class-name">echo</span> <span class="token variable">$HARBOR_ROBOT_TOKEN</span> <span class="token operator">|</span> <span class="token function">docker</span> login <span class="token parameter variable">--username</span> <span class="token string">&quot;robot\<span class="token variable">$myrobot</span>&quot;</span> --password-stdin harbor.<span class="token variable">${MY_DOMAIN}</span>
+<span class="token function">docker</span> push harbor.<span class="token variable">${MY_DOMAIN}</span>/library/kuard-amd64:blue
+
+<span class="token function">docker</span> tag gcr.io/kuar-demo/kuard-amd64:blue harbor.<span class="token variable">${MY_DOMAIN}</span>/library/kuard-amd64:blue2
+<span class="token builtin class-name">echo</span> admin <span class="token operator">|</span> <span class="token function">docker</span> login <span class="token parameter variable">--username</span> admin --password-stdin harbor.<span class="token variable">${MY_DOMAIN}</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">DOCKER_CONTENT_TRUST</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">DOCKER_CONTENT_TRUST_SERVER</span><span class="token operator">=</span>https://notary.<span class="token variable">${MY_DOMAIN}</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE</span><span class="token operator">=</span><span class="token string">&quot;mypassphrase123&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE</span><span class="token operator">=</span><span class="token string">&quot;rootpassphrase123&quot;</span>
+<span class="token function">docker</span> push harbor.<span class="token variable">${MY_DOMAIN}</span>/library/kuard-amd64:blue2
+
+<span class="token builtin class-name">unset</span> DOCKER_CONTENT_TRUST
+<span class="token builtin class-name">unset</span> SSL_CERT_FILE
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor/edit/master/docs/part-04/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:11:02 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-knative-gitlab-harbor/part-03/" class="prev">
+        Istio + Knative + cert-manager + kubed installation
+      </a></span> <span class="next"><a href="/k8s-knative-gitlab-harbor/part-05/">
+        Install GitLab
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js" defer></script>
+  </body>
+</html>

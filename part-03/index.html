@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Istio + Knative + cert-manager + kubed installation | Kubernetes + Knative + GitLab + Harbor</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="Kubernetes + Knative + GitLab + Harbor">
+    
+    <link rel="preload" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css" as="style"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js" as="script"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/10.f496eaac.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/12.7aed55d0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/13.050c5350.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/14.30343ebc.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/16.cd753f26.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/22.8f730d8b.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/23.1d6373ca.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/28.8647f919.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/29.36e9fab6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/30.f81551c9.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/31.aa5de726.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/32.22ccabcf.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/4.1a6ad45d.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/5.4b4e299e.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/6.88072c68.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/7.f09a9532.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/vendors~docsearch.857e8e87.js">
+    <link rel="stylesheet" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-knative-gitlab-harbor/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="Kubernetes + Knative + GitLab + Harbor" class="logo"> <span class="site-name can-hide">Kubernetes + Knative + GitLab + Harbor</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-knative-gitlab-harbor/" aria-current="page" class="sidebar-link">Kubernetes + Knative + GitLab + Harbor</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#content" class="sidebar-link">Content</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#asciinema" class="sidebar-link">Asciinema</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-01/" class="sidebar-link">Create k8s cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#create-k8s-in-aws" class="sidebar-link">Create K8s in AWS</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-knative-gitlab-harbor/part-03/" aria-current="page" class="active sidebar-link">Istio + Knative + cert-manager + kubed installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-cert-manager" class="sidebar-link">Install cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#generate-tls-certificate" class="sidebar-link">Generate TLS certificate</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-kubed" class="sidebar-link">Install kubed</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-04/" class="sidebar-link">Install Harbor</a></li><li><a href="/k8s-knative-gitlab-harbor/part-05/" class="sidebar-link">Install GitLab</a></li><li><a href="/k8s-knative-gitlab-harbor/part-06/" class="sidebar-link">Install Knative</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-06/#enable-automatic-tls-certificate-provisioning-for-knative" class="sidebar-link">Enable automatic TLS certificate provisioning for Knative</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-07/" class="sidebar-link">Build and run container image using Knative + Tekton</a></li><li><a href="/k8s-knative-gitlab-harbor/part-08/" class="sidebar-link">Automated deployment with Tekton</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#fork-podinfo-application" class="sidebar-link">Fork podinfo application</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#create-tekton-triggers-configuration" class="sidebar-link">Create Tekton Triggers configuration</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#change-the-source-code-of-the-app" class="sidebar-link">Change the source code of the app</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-09/" class="sidebar-link">Knative operations</a></li><li><a href="/k8s-knative-gitlab-harbor/part-10/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="istio-knative-cert-manager-kubed-installation"><a href="#istio-knative-cert-manager-kubed-installation" class="header-anchor">#</a> Istio + Knative + cert-manager + kubed installation</h1> <p>Before we move on with other tasks it is necessary to install Nginx Ingress.
+It's also handy to install cert-manager for managing SSL certificates.</p> <h2 id="install-cert-manager"><a href="#install-cert-manager" class="header-anchor">#</a> Install cert-manager</h2> <p>cert-manager architecture:</p> <p><img src="https://raw.githubusercontent.com/jetstack/cert-manager/4f30ed75e88e5d0defeb950501b5cac6da7fa7fe/docs/images/high-level-overview.png" alt="cert-manager high level overview" title="cert-manager high level overview"></p> <p>Install the CRDs resources separately:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">-f</span> https://raw.githubusercontent.com/jetstack/cert-manager/release-0.10/deploy/manifests/00-crds.yaml
+<span class="token function">sleep</span> <span class="token number">5</span>
+</code></pre></div><p>Create the namespace for cert-manager and label it to disable resource
+validation:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create namespace cert-manager
+kubectl label namespace cert-manager certmanager.k8s.io/disable-validation<span class="token operator">=</span>true
+</code></pre></div><p>Install the cert-manager Helm chart:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> jetstack https://charts.jetstack.io
+helm repo update
+helm <span class="token function">install</span> cert-manager <span class="token parameter variable">--namespace</span> cert-manager <span class="token parameter variable">--wait</span> jetstack/cert-manager <span class="token parameter variable">--version</span> v0.10.1
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>&quot;jetstack&quot; has been added to your repositories
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the &quot;jetstack&quot; chart repository
+...Successfully got an update from the &quot;stable&quot; chart repository
+Update Complete. ⎈ Happy Helming!⎈
+NAME: cert-manager
+LAST DEPLOYED: Fri Dec 27 10:48:40 2019
+NAMESPACE: cert-manager
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+cert-manager has been deployed successfully!
+
+In order to begin issuing certificates, you will need to set up a ClusterIssuer
+or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
+
+More information on the different types of issuers and how to configure them
+can be found in our documentation:
+
+https://docs.cert-manager.io/en/latest/reference/issuers.html
+
+For information on how to configure cert-manager to automatically provision
+Certificates for Ingress resources, take a look at the `ingress-shim`
+documentation:
+
+https://docs.cert-manager.io/en/latest/reference/ingress-shim.html
+</code></pre></div><h3 id="create-clusterissuer-for-let-s-encrypt"><a href="#create-clusterissuer-for-let-s-encrypt" class="header-anchor">#</a> Create ClusterIssuer for Let's Encrypt</h3> <p>Create <code>ClusterIssuer</code> for Route53 used by cert-manager. It will allow Let's
+Encrypt to generate certificate. Route53 (DNS) method of requesting certificate
+from Let's Encrypt must be used to create wildcard certificate <code>*.mylabs.dev</code>
+(details <a href="https://community.letsencrypt.org/t/wildcard-certificates-via-http-01/51223" target="_blank" rel="noopener noreferrer">here<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>).</p> <p><img src="https://b3n.org/wp-content/uploads/2016/09/acme_letsencrypt_dns-01-challenge.png" alt="ACME DNS Challenge" title="ACME DNS Challenge"></p> <p>(<a href="https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/" target="_blank" rel="noopener noreferrer">https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">USER_AWS_SECRET_ACCESS_KEY_BASE64</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token parameter variable">-n</span> <span class="token string">&quot;<span class="token variable">$USER_AWS_SECRET_ACCESS_KEY</span>&quot;</span> <span class="token operator">|</span> base64<span class="token variable">)</span></span>
+<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-user-secret-access-key-secret
+  namespace: cert-manager
+data:
+  secret-access-key: <span class="token variable">$USER_AWS_SECRET_ACCESS_KEY_BASE64</span>
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging-dns
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: petr.ruzicka@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-staging-dns
+    dns01:
+      providers:
+      - name: aws-route53
+        route53:
+          accessKeyID: <span class="token variable">${USER_AWS_ACCESS_KEY_ID}</span>
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            name: aws-user-secret-access-key-secret
+            key: secret-access-key
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-dns
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: petr.ruzicka@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production-dns
+    dns01:
+      providers:
+      - name: aws-route53
+        route53:
+          accessKeyID: <span class="token variable">${USER_AWS_ACCESS_KEY_ID}</span>
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            name: aws-user-secret-access-key-secret
+            key: secret-access-key
+EOF</span>
+</code></pre></div><h2 id="generate-tls-certificate"><a href="#generate-tls-certificate" class="header-anchor">#</a> Generate TLS certificate</h2> <p>Create certificate using cert-manager:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  namespace: cert-manager
+spec:
+  secretName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>-dns
+  commonName: &quot;*.<span class="token variable">${MY_DOMAIN}</span>&quot;
+  dnsNames:
+  - &quot;*.<span class="token variable">${MY_DOMAIN}</span>&quot;
+  acme:
+    config:
+    - dns01:
+        provider: aws-route53
+      domains:
+      - &quot;*.<span class="token variable">${MY_DOMAIN}</span>&quot;
+EOF</span>
+</code></pre></div><p>(<a href="https://www.openshift.com/blog/self-serviced-end-to-end-encryption-approaches-for-applications-deployed-in-openshift" target="_blank" rel="noopener noreferrer">https://www.openshift.com/blog/self-serviced-end-to-end-encryption-approaches-for-applications-deployed-in-openshift<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</p> <h2 id="install-kubed"><a href="#install-kubed" class="header-anchor">#</a> Install kubed</h2> <p>It's necessary to copy the wildcard certificate across all &quot;future&quot; namespaces
+and that's the reason why <a href="https://github.com/appscode/kubed" target="_blank" rel="noopener noreferrer">kubed<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> needs to be
+installed (for now).
+<a href="https://github.com/appscode/kubed" target="_blank" rel="noopener noreferrer">kubed<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> can <a href="https://appscode.com/products/kubed/0.9.0/guides/config-syncer/" target="_blank" rel="noopener noreferrer">synchronize ConfigMaps/Secrets<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+across Kubernetes namespaces/clusters.</p> <p>Kubed - synchronize secret diagram:</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/kubed.e88b1fb6.svg" alt="Kubed - synchronize secret" title="Kubed - synchronize secret"></p> <p>Add kubed helm repository:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> appscode https://charts.appscode.com/stable/
+helm repo update
+</code></pre></div><p>Install kubed:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm <span class="token function">install</span> kubed appscode/kubed <span class="token parameter variable">--version</span> <span class="token number">0.11</span>.0 <span class="token parameter variable">--namespace</span> kube-system <span class="token parameter variable">--wait</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">apiserver.enabled</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">config.clusterName</span><span class="token operator">=</span>my_k8s_cluster
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME: kubed
+LAST DEPLOYED: Fri Dec 27 10:49:39 2019
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+To verify that Kubed has started, run:
+
+  kubectl --namespace=kube-system get deployments -l &quot;release=kubed, app=kubed&quot;
+</code></pre></div><p>Annotate (mark) the cert-manager secret to be copied to other namespaces
+if necessary:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl annotate secret ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span> <span class="token parameter variable">-n</span> cert-manager kubed.appscode.com/sync<span class="token operator">=</span><span class="token string">&quot;app=kubed&quot;</span>
+</code></pre></div><h2 id="install-istio"><a href="#install-istio" class="header-anchor">#</a> Install Istio</h2> <p>Add Istio helm chart repository:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">ISTIO_VERSION</span><span class="token operator">=</span><span class="token string">&quot;1.3.6&quot;</span>
+helm repo <span class="token function">add</span> istio.io https://storage.googleapis.com/istio-release/releases/<span class="token variable">${ISTIO_VERSION}</span>/charts/
+helm repo update
+</code></pre></div><p>Install CRDs for Istio:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create namespace istio-system
+helm <span class="token function">install</span> istio-init istio.io/istio-init <span class="token parameter variable">--wait</span> <span class="token parameter variable">--namespace</span> istio-system <span class="token parameter variable">--version</span> <span class="token variable">${ISTIO_VERSION}</span>
+kubectl <span class="token parameter variable">-n</span> istio-system <span class="token function">wait</span> <span class="token parameter variable">--for</span><span class="token operator">=</span>condition<span class="token operator">=</span>complete job <span class="token parameter variable">--all</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>namespace/istio-system created
+NAME: istio-init
+LAST DEPLOYED: Fri Dec 27 10:49:56 2019
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+job.batch/istio-init-crd-10-1.3.6 condition met
+job.batch/istio-init-crd-11-1.3.6 condition met
+job.batch/istio-init-crd-12-1.3.6 condition met
+</code></pre></div><p>Label Istio namespace and which will trigger <code>kubed</code> to copy there the secret
+with certificates signed by Let's Encrypt:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl label namespace istio-system <span class="token assign-left variable">app</span><span class="token operator">=</span>kubed
+</code></pre></div><p>Install Istio:</p> <p>(steps take from <a href="https://github.com/knative/docs/blob/a8a1032de0c2b19f07a70456c030dfde94b12c03/docs/install/installing-istio.md" target="_blank" rel="noopener noreferrer">Knative page<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm <span class="token function">install</span> istio istio.io/istio <span class="token parameter variable">--wait</span> <span class="token parameter variable">--namespace</span> istio-system <span class="token parameter variable">--version</span> <span class="token variable">${ISTIO_VERSION}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.autoscaleMax<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.autoscaleMin<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.name<span class="token operator">=</span>status-port <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.port<span class="token operator">=</span><span class="token number">15020</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.targetPort<span class="token operator">=</span><span class="token number">15020</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>.name<span class="token operator">=</span>http <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>.nodePort<span class="token operator">=</span><span class="token number">31380</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>.port<span class="token operator">=</span><span class="token number">80</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>.targetPort<span class="token operator">=</span><span class="token number">80</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>.name<span class="token operator">=</span>https <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>.nodePort<span class="token operator">=</span><span class="token number">31390</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>.port<span class="token operator">=</span><span class="token number">443</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>.name<span class="token operator">=</span>ssh <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>.nodePort<span class="token operator">=</span><span class="token number">31400</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.ports<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>.port<span class="token operator">=</span><span class="token number">22</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> gateways.istio-ingressgateway.sds.enabled<span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.disablePolicyChecks</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.k8sIngress.enableHttps</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.k8sIngress.enabled</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">global.proxy.autoInject</span><span class="token operator">=</span>disabled <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.access<span class="token operator">=</span>proxy <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.editable<span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.isDefault<span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.jsonData.timeInterval<span class="token operator">=</span>5s <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.name<span class="token operator">=</span>Prometheus <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.orgId<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.type<span class="token operator">=</span>prometheus <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> grafana.datasources.<span class="token string">&quot;datasources\.yaml&quot;</span>.datasources<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.url<span class="token operator">=</span>http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">grafana.enabled</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.contextPath</span><span class="token operator">=</span>/ <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.createDemoSecret</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.dashboard.grafanaURL</span><span class="token operator">=</span>http://grafana.<span class="token variable">${MY_DOMAIN}</span>/ <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.dashboard.jaegerURL</span><span class="token operator">=</span>http://jaeger.<span class="token variable">${MY_DOMAIN}</span>/ <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.enabled</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">kiali.prometheusAddr</span><span class="token operator">=</span>http://prometheus-system-np.knative-monitoring.svc.cluster.local:8080 <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">mixer.adapters.prometheus.enabled</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">pilot.traceSampling</span><span class="token operator">=</span><span class="token number">100</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">prometheus.enabled</span><span class="token operator">=</span>false <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">sidecarInjectorWebhook.enableNamespacesByDefault</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">sidecarInjectorWebhook.enabled</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">tracing.enabled</span><span class="token operator">=</span>true
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME: istio
+LAST DEPLOYED: Fri Dec 27 10:50:54 2019
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Thank you for installing Istio.
+
+Your release is named Istio.
+
+To get started running application with Istio, execute the following steps:
+1. Label namespace that application object will be deployed to by the following command (take default namespace as an example)
+
+  kubectl label namespace default istio-injection=enabled
+  kubectl get namespace -L istio-injection
+
+2. Deploy your applications
+
+  kubectl apply -f &amp;lt;your-application&gt;.yaml
+
+For more information on running Istio, visit:
+https://istio.io/
+</code></pre></div><p>Let <code>istio-ingressgateway</code> to use cert-manager generated certificate via
+<a href="https://www.envoyproxy.io/docs/envoy/v1.5.0/intro/arch_overview/service_discovery#arch-overview-service-discovery-types-sds" target="_blank" rel="noopener noreferrer">SDS<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.
+Steps are taken from this URL: <a href="https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/" target="_blank" rel="noopener noreferrer">https://istio.io/docs/tasks/traffic-management/ingress/ingress-certmgr/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl <span class="token parameter variable">-n</span> istio-system patch gateway istio-autogenerated-k8s-ingress <span class="token punctuation">\</span>
+  <span class="token parameter variable">--type</span><span class="token operator">=</span>json <span class="token punctuation">\</span>
+  <span class="token parameter variable">-p</span><span class="token operator">=</span><span class="token string">&quot;[{&quot;</span><span class="token function">op</span><span class="token string">&quot;: &quot;</span>replace<span class="token string">&quot;, &quot;</span>path<span class="token string">&quot;: &quot;</span>/spec/servers/1/tls<span class="token string">&quot;, &quot;</span>value<span class="token string">&quot;: {&quot;</span>credentialName<span class="token string">&quot;: &quot;</span>ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span><span class="token string">&quot;, &quot;</span>mode<span class="token string">&quot;: &quot;</span>SIMPLE<span class="token string">&quot;, &quot;</span>privateKey<span class="token string">&quot;: &quot;</span>sds<span class="token string">&quot;, &quot;</span>serverCertificate<span class="token string">&quot;: &quot;</span>sds<span class="token string">&quot;}}]&quot;</span>
+</code></pre></div><p>Disable HTTP2 for gateway <code>istio-autogenerated-k8s-ingress</code> to be compatible
+with Knative:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl <span class="token parameter variable">-n</span> istio-system patch gateway istio-autogenerated-k8s-ingress <span class="token parameter variable">--type</span><span class="token operator">=</span>json <span class="token punctuation">\</span>
+  <span class="token parameter variable">-p</span><span class="token operator">=</span><span class="token string">&quot;[{&quot;</span><span class="token function">op</span><span class="token string">&quot;: &quot;</span>replace<span class="token string">&quot;, &quot;</span>path<span class="token string">&quot;: &quot;</span>/spec/servers/0/port<span class="token string">&quot;, &quot;</span>value<span class="token string">&quot;: {&quot;</span>name<span class="token string">&quot;: &quot;</span>http<span class="token string">&quot;, &quot;</span>number<span class="token string">&quot;: &quot;</span><span class="token number">80</span><span class="token string">&quot;, &quot;</span>protocol<span class="token string">&quot;: &quot;</span>HTTP<span class="token string">&quot;}}]&quot;</span>
+</code></pre></div><p>Allow the <code>default</code> namespace to use Istio injection:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl label namespace default istio-injection<span class="token operator">=</span>enabled
+</code></pre></div><p>Configure the Istio services <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and
+<a href="https://www.kiali.io/" target="_blank" rel="noopener noreferrer">Kiali<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to be visible externally:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-services-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-istio-services
+      protocol: HTTP
+    hosts:
+    - grafana-istio.<span class="token variable">${MY_DOMAIN}</span>
+    - jaeger-istio.<span class="token variable">${MY_DOMAIN}</span>
+    - kiali-istio.<span class="token variable">${MY_DOMAIN}</span>
+  - port:
+      number: 443
+      name: https-istio-services
+      protocol: HTTPS
+    hosts:
+    - grafana-istio.<span class="token variable">${MY_DOMAIN}</span>
+    - jaeger-istio.<span class="token variable">${MY_DOMAIN}</span>
+    - kiali-istio.<span class="token variable">${MY_DOMAIN}</span>
+    tls:
+      credentialName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-istio-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - grafana-istio.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - istio-services-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana.istio-system.svc.cluster.local
+        port:
+          number: 3000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jaeger-istio-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - jaeger-istio.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - istio-services-gateway
+  http:
+  - route:
+    - destination:
+        host: tracing.istio-system.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-istio-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - kiali-istio.<span class="token variable">${MY_DOMAIN}</span>
+  gateways:
+  - istio-services-gateway
+  http:
+  - route:
+    - destination:
+        host: kiali.istio-system.svc.cluster.local
+        port:
+          number: 20001
+EOF</span>
+</code></pre></div><h2 id="create-dns-records"><a href="#create-dns-records" class="header-anchor">#</a> Create DNS records</h2> <p>Install <a href="https://github.com/kubernetes-incubator/external-dns" target="_blank" rel="noopener noreferrer">external-dns<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and
+let it manage <code>mylabs.dev</code> entries in Route 53 (Do not upgrade external-dns,
+because it's not backward compatible and using different way of authentication
+to Route53 using roles):</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create namespace external-dns
+helm <span class="token function">install</span> external-dns stable/external-dns <span class="token parameter variable">--namespace</span> external-dns <span class="token parameter variable">--version</span> <span class="token number">2.10</span>.1 <span class="token parameter variable">--wait</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">aws.credentials.accessKey</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${USER_AWS_ACCESS_KEY_ID}</span>&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">aws.credentials.secretKey</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${USER_AWS_SECRET_ACCESS_KEY}</span>&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">aws.region</span><span class="token operator">=</span>eu-central-1 <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">domainFilters</span><span class="token operator">=</span><span class="token punctuation">{</span><span class="token variable">${MY_DOMAIN}</span><span class="token punctuation">}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">istioIngressGateways</span><span class="token operator">=</span><span class="token punctuation">{</span>istio-system/istio-ingressgateway<span class="token punctuation">}</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">interval</span><span class="token operator">=</span><span class="token string">&quot;10s&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">policy</span><span class="token operator">=</span><span class="token string">&quot;sync&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">rbac.create</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">sources</span><span class="token operator">=</span><span class="token string">&quot;{istio-gateway,service}&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">txtOwnerId</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${<span class="token environment constant">USER</span>}</span>-k8s.<span class="token variable">${MY_DOMAIN}</span>&quot;</span>
+</code></pre></div><p>Output:</p> <div class="language-json extra-class"><pre class="language-json"><code>namespace/external-dns created
+NAME<span class="token operator">:</span> external-dns
+LAST DEPLOYED<span class="token operator">:</span> Fri Dec <span class="token number">27</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">53</span><span class="token operator">:</span><span class="token number">29</span> <span class="token number">2019</span>
+NAMESPACE<span class="token operator">:</span> external-dns
+STATUS<span class="token operator">:</span> deployed
+REVISION<span class="token operator">:</span> <span class="token number">1</span>
+TEST SUITE<span class="token operator">:</span> None
+NOTES<span class="token operator">:</span>
+** Please be patient while the chart is being deployed **
+
+To verify that external-dns has started<span class="token punctuation">,</span> run<span class="token operator">:</span>
+
+  kubectl --namespace=external-dns get pods -l <span class="token string">&quot;app.kubernetes.io/name=external-dns,app.kubernetes.io/instance=external-dns&quot;</span>
+</code></pre></div><p><img src="https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/crystal.svg?sanitize=true" alt="Architecture" title="Architecture"></p> <p>You should be able to reach these URLs:</p> <ul><li>Grafana: <a href="https://grafana-istio.mylabs.dev" target="_blank" rel="noopener noreferrer">https://grafana-istio.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>Jaeger: <a href="https://jaeger-istio.mylabs.dev" target="_blank" rel="noopener noreferrer">https://jaeger-istio.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>Kiali: <a href="https://kiali-istio.mylabs.dev" target="_blank" rel="noopener noreferrer">https://kiali-istio.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor/edit/master/docs/part-03/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:11:02 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-knative-gitlab-harbor/part-02/" class="prev">
+        Install Helm
+      </a></span> <span class="next"><a href="/k8s-knative-gitlab-harbor/part-04/">
+        Install Harbor
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js" defer></script>
+  </body>
+</html>

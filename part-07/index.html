@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Build and run container image using Knative + Tekton | Kubernetes + Knative + GitLab + Harbor</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="Kubernetes + Knative + GitLab + Harbor">
+    
+    <link rel="preload" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css" as="style"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" as="script"><link rel="preload" href="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js" as="script"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/10.f496eaac.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/12.7aed55d0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/13.050c5350.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/14.30343ebc.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/16.cd753f26.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/21.66c4eb78.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/22.8f730d8b.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/23.1d6373ca.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/24.c43ab997.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/25.4bb64d24.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/26.a5905c70.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/28.8647f919.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/29.36e9fab6.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/30.f81551c9.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/31.aa5de726.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/32.22ccabcf.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/4.1a6ad45d.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/5.4b4e299e.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/6.88072c68.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/7.f09a9532.js"><link rel="prefetch" href="/k8s-knative-gitlab-harbor/assets/js/vendors~docsearch.857e8e87.js">
+    <link rel="stylesheet" href="/k8s-knative-gitlab-harbor/assets/css/0.styles.985b6b59.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-knative-gitlab-harbor/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="Kubernetes + Knative + GitLab + Harbor" class="logo"> <span class="site-name can-hide">Kubernetes + Knative + GitLab + Harbor</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-knative-gitlab-harbor/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitLab
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://goharbor.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Harbor
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://cloud.google.com/knative" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Knative
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-knative-gitlab-harbor/" aria-current="page" class="sidebar-link">Kubernetes + Knative + GitLab + Harbor</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#content" class="sidebar-link">Content</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/#asciinema" class="sidebar-link">Asciinema</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-01/" class="sidebar-link">Create k8s cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-01/#create-k8s-in-aws" class="sidebar-link">Create K8s in AWS</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-knative-gitlab-harbor/part-03/" class="sidebar-link">Istio + Knative + cert-manager + kubed installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-cert-manager" class="sidebar-link">Install cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#generate-tls-certificate" class="sidebar-link">Generate TLS certificate</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-kubed" class="sidebar-link">Install kubed</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-04/" class="sidebar-link">Install Harbor</a></li><li><a href="/k8s-knative-gitlab-harbor/part-05/" class="sidebar-link">Install GitLab</a></li><li><a href="/k8s-knative-gitlab-harbor/part-06/" class="sidebar-link">Install Knative</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-06/#enable-automatic-tls-certificate-provisioning-for-knative" class="sidebar-link">Enable automatic TLS certificate provisioning for Knative</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-07/" aria-current="page" class="active sidebar-link">Build and run container image using Knative + Tekton</a></li><li><a href="/k8s-knative-gitlab-harbor/part-08/" class="sidebar-link">Automated deployment with Tekton</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#fork-podinfo-application" class="sidebar-link">Fork podinfo application</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#create-tekton-triggers-configuration" class="sidebar-link">Create Tekton Triggers configuration</a></li><li class="sidebar-sub-header"><a href="/k8s-knative-gitlab-harbor/part-08/#change-the-source-code-of-the-app" class="sidebar-link">Change the source code of the app</a></li></ul></li><li><a href="/k8s-knative-gitlab-harbor/part-09/" class="sidebar-link">Knative operations</a></li><li><a href="/k8s-knative-gitlab-harbor/part-10/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="build-and-run-container-image-using-knative-tekton"><a href="#build-and-run-container-image-using-knative-tekton" class="header-anchor">#</a> Build and run container image using Knative + Tekton</h1> <p>Set the necessary variables:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_REPOSITORY</span><span class="token operator">=</span><span class="token string">&quot;git@gitlab.<span class="token variable">${MY_DOMAIN}</span>:myuser/my-podinfo.git&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_REVISION</span><span class="token operator">=</span><span class="token string">&quot;3.1.0&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_REPO_SSH_KEY</span><span class="token operator">=</span><span class="token string">&quot;tmp/id_rsa_gitlab&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_REGISTRY</span><span class="token operator">=</span><span class="token string">&quot;harbor.<span class="token variable">${MY_DOMAIN}</span>/library/my-podinfo&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_REGISTRY_USERNAME</span><span class="token operator">=</span><span class="token string">&quot;robot\<span class="token variable">$myrobot</span>&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_REGISTRY_PASSWORD</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${HARBOR_ROBOT_TOKEN}</span>&quot;</span>
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_PROJECT_NAME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span> <span class="token builtin class-name">echo</span> $<span class="token punctuation">{</span>GIT_REPOSITORY<span class="token punctuation">}</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">&quot;s@.*/\(.*\).git@<span class="token entity" title="\1">\1</span>@; s/\./\-/&quot;</span> <span class="token variable">)</span></span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_REGISTRY_SERVER</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span> <span class="token builtin class-name">echo</span> $CONTAINER_REGISTRY <span class="token operator">|</span> <span class="token function">awk</span> <span class="token parameter variable">-F</span> / <span class="token string">&quot;{ print \<span class="token variable">$1</span> }&quot;</span> <span class="token variable">)</span></span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_REGISTRY_SERVER_MODIFIED</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span> <span class="token builtin class-name">echo</span> $CONTAINER_REGISTRY <span class="token operator">|</span> <span class="token function">awk</span> <span class="token parameter variable">-F</span> / <span class="token string">&quot;{ gsub(/\./,<span class="token entity" title="\&quot;">\&quot;</span>-<span class="token entity" title="\&quot;">\&quot;</span>); print \<span class="token variable">$1</span> }&quot;</span> <span class="token variable">)</span></span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_SSH_SERVER</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span> <span class="token builtin class-name">echo</span> $GIT_REPOSITORY <span class="token operator">|</span> <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token string">&quot;[@:]&quot;</span> <span class="token string">&quot;{ print \<span class="token variable">$2</span>}&quot;</span> <span class="token variable">)</span></span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GIT_SSH_SERVER_MODIFIED</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span> <span class="token builtin class-name">echo</span> $GIT_REPOSITORY <span class="token operator">|</span> <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token string">&quot;[@:]&quot;</span> <span class="token string">&quot;{ gsub(/\./,<span class="token entity" title="\&quot;">\&quot;</span>-<span class="token entity" title="\&quot;">\&quot;</span>); print \<span class="token variable">$2</span> }&quot;</span> <span class="token variable">)</span></span>
+</code></pre></div><p>Create secret for Harbor registry to let Tekton pipeline to upload the container
+image:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create secret docker-registry <span class="token variable">${CONTAINER_REGISTRY_SERVER_MODIFIED}</span>-docker-config <span class="token punctuation">\</span>
+  --docker-server<span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CONTAINER_REGISTRY_SERVER}</span>&quot;</span> <span class="token punctuation">\</span>
+  --docker-username<span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CONTAINER_REGISTRY_USERNAME}</span>&quot;</span> <span class="token punctuation">\</span>
+  --docker-password<span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CONTAINER_REGISTRY_PASSWORD}</span>&quot;</span>
+</code></pre></div><p>Create secret for AWS user to allow Tekton pipeline to push binary to S3:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create secret generic user-aws-access-keys --from-literal<span class="token operator">=</span>access_key<span class="token operator">=</span><span class="token variable">$USER_AWS_ACCESS_KEY_ID</span> --from-literal<span class="token operator">=</span>secret_key<span class="token operator">=</span><span class="token variable">$USER_AWS_SECRET_ACCESS_KEY</span>
+</code></pre></div><p>Create + start Tekton pipeline (and it's components) to build the container
+image:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/ssh-auth
+metadata:
+  name: <span class="token variable">${GIT_SSH_SERVER_MODIFIED}</span>-ssh-key
+  annotations:
+    tekton.dev/git-0: <span class="token variable">${GIT_SSH_SERVER}</span>
+data:
+  ssh-privatekey: <span class="token variable"><span class="token variable">$(</span>base64 <span class="token parameter variable">-w</span> <span class="token number">0</span> $<span class="token punctuation">{</span>GIT_REPO_SSH_KEY<span class="token punctuation">}</span><span class="token variable">)</span></span>
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: <span class="token variable">${GIT_SSH_SERVER_MODIFIED}</span>-build-bot
+secrets:
+  - name: <span class="token variable">${GIT_SSH_SERVER_MODIFIED}</span>-ssh-key
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: <span class="token variable">${GIT_PROJECT_NAME}</span>-project-git
+  namespace: default
+spec:
+  type: git
+  params:
+    - name: url
+      value: <span class="token variable">${GIT_REPOSITORY}</span>
+    - name: revision
+      value: <span class="token variable">${GIT_REVISION}</span>
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: <span class="token variable">${GIT_PROJECT_NAME}</span>-project-image
+spec:
+  type: image
+  params:
+    - name: url
+      value: <span class="token variable">${CONTAINER_REGISTRY}</span>:<span class="token variable">${GIT_REVISION}</span>
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-docker-image-from-git-task
+spec:
+  inputs:
+    resources:
+      - name: docker-source
+        type: git
+    params:
+      - name: pathToDockerFile
+        description: The path to the dockerfile to build
+        default: /workspace/docker-source/Dockerfile
+      - name: pathToContext
+        description:
+          The build context used by Kaniko
+          (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
+        default: /workspace/docker-source
+  outputs:
+    resources:
+      - name: builtImage
+        type: image
+  volumes:
+    - name: docker-config
+      secret:
+        secretName: <span class="token variable">${CONTAINER_REGISTRY_SERVER_MODIFIED}</span>-docker-config
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: shared-storage
+      emptyDir: {}
+  steps:
+    - name: build-and-tar
+      image: gcr.io/kaniko-project/executor
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=\<span class="token variable"><span class="token variable">$(</span>inputs.params.pathToDockerFile<span class="token variable">)</span></span>
+        - --destination=\<span class="token variable"><span class="token variable">$(</span>outputs.resources.builtImage.url<span class="token variable">)</span></span>
+        - --context=\<span class="token variable"><span class="token variable">$(</span>inputs.params.pathToContext<span class="token variable">)</span></span>
+        - --single-snapshot
+        - --tarPath=/shared-storage/<span class="token variable">${<span class="token environment constant">USER</span>}</span>-app-build.tar
+        - --no-push
+      volumeMounts:
+        - name: docker-config
+          mountPath: /builder/home/.docker/
+        - name: shared-storage
+          mountPath: /shared-storage
+    - name: upload-container-content-s3
+      image: atlassian/pipelines-awscli
+      command: [&quot;sh&quot;, &quot;-x&quot;, &quot;-c&quot;, &quot;ls -la /shared-storage/ ; aws s3 cp /shared-storage/<span class="token variable">${<span class="token environment constant">USER</span>}</span>-app-build.tar s3://<span class="token variable">${<span class="token environment constant">USER</span>}</span>-kops-k8s/&quot;]
+      env:
+        - name: AWS_DEFAULT_REGION
+          value: &quot;eu-central-1&quot;
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: user-aws-access-keys
+              key: secret_key
+      volumeMounts:
+        - name: shared-storage
+          mountPath: /shared-storage
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor
+      env:
+        - name: &quot;DOCKER_CONFIG&quot;
+          value: &quot;/builder/home/.docker/&quot;
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=\<span class="token variable"><span class="token variable">$(</span>inputs.params.pathToDockerFile<span class="token variable">)</span></span>
+        - --destination=\<span class="token variable"><span class="token variable">$(</span>outputs.resources.builtImage.url<span class="token variable">)</span></span>
+        - --context=\<span class="token variable"><span class="token variable">$(</span>inputs.params.pathToContext<span class="token variable">)</span></span>
+        - --single-snapshot
+        - --skip-tls-verify
+      volumeMounts:
+        - name: docker-config
+          mountPath: /builder/home/.docker/
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-docker-image-from-git-pipeline
+spec:
+  resources:
+  - name: docker-source
+    type: git
+  - name: builtImage
+    type: image
+  tasks:
+  - name: build-docker-image-from-git-task-run
+    taskRef:
+      name: build-docker-image-from-git-task
+    params:
+    - name: pathToDockerFile
+      value: Dockerfile
+    - name: pathToContext
+      value: /workspace/docker-source/
+    resources:
+      inputs:
+      - name: docker-source
+        resource: docker-source
+      outputs:
+      - name: builtImage
+        resource: builtImage
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: <span class="token variable">${GIT_PROJECT_NAME}</span>-build-docker-image-from-git-pipelinerun
+spec:
+  serviceAccount: <span class="token variable">${GIT_SSH_SERVER_MODIFIED}</span>-build-bot
+  pipelineRef:
+    name: build-docker-image-from-git-pipeline
+  resources:
+    - name: docker-source
+      resourceRef:
+        name: <span class="token variable">${GIT_PROJECT_NAME}</span>-project-git
+    - name: builtImage
+      resourceRef:
+        name: <span class="token variable">${GIT_PROJECT_NAME}</span>-project-image
+EOF</span>
+<span class="token function">sleep</span> <span class="token number">5</span>
+</code></pre></div><p>Wait for container build process will complete:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl <span class="token function">wait</span> <span class="token parameter variable">--timeout</span><span class="token operator">=</span>10m <span class="token parameter variable">--for</span><span class="token operator">=</span>condition<span class="token operator">=</span>Succeeded pipelineruns/<span class="token variable">${GIT_PROJECT_NAME}</span>-build-docker-image-from-git-pipelinerun
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>pipelinerun.tekton.dev/my-podinfo-build-docker-image-from-git-pipelinerun condition met
+</code></pre></div><p>Start the application:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> kubectl apply <span class="token parameter variable">-f</span> -</span>
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: my-podinfo
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - image: <span class="token variable">${CONTAINER_REGISTRY}</span>:<span class="token variable">${GIT_REVISION}</span>
+          ports:
+          - name: http1
+            containerPort: 9898
+EOF</span>
+<span class="token function">sleep</span> <span class="token number">20</span>
+</code></pre></div><p>Check the status of the application:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl get pod,ksvc,configuration,revision,route,deployment
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME                                                                             READY   STATUS      RESTARTS   AGE
+pod/my-podinfo-build-docker-image-from-git-pipelinerun-build--msbcv-pod-d6861e   0/6     Completed   0          7m56s
+pod/my-podinfo-vpw78-deployment-bbb89db58-vmnhb                                  2/2     Running     0          21s
+
+NAME                                     URL                                    LATESTCREATED      LATESTREADY        READY   REASON
+service.serving.knative.dev/my-podinfo   http://my-podinfo.default.mylabs.dev   my-podinfo-vpw78   my-podinfo-vpw78   True
+
+NAME                                           LATESTCREATED      LATESTREADY        READY   REASON
+configuration.serving.knative.dev/my-podinfo   my-podinfo-vpw78   my-podinfo-vpw78   True
+
+NAME                                            CONFIG NAME   K8S SERVICE NAME   GENERATION   READY   REASON
+revision.serving.knative.dev/my-podinfo-vpw78   my-podinfo    my-podinfo-vpw78   1            True
+
+NAME                                   URL                                    READY   REASON
+route.serving.knative.dev/my-podinfo   http://my-podinfo.default.mylabs.dev   True
+
+NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.extensions/my-podinfo-vpw78-deployment   1/1     1            1           21s
+</code></pre></div><p>Open <a href="https://my-podinfo.default.mylabs.dev" target="_blank" rel="noopener noreferrer">https://my-podinfo.default.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+to see the application:</p> <p>When you close the web browser - after some time without handling traffic
+the number of running pods should drop to zero:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl get deployments,pods
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.extensions/my-podinfo-vpw78-deployment   1/1     1            1           22s
+
+NAME                                                                             READY   STATUS      RESTARTS   AGE
+pod/my-podinfo-build-docker-image-from-git-pipelinerun-build--msbcv-pod-d6861e   0/6     Completed   0          7m57s
+pod/my-podinfo-vpw78-deployment-bbb89db58-vmnhb                                  2/2     Running     0          22s
+</code></pre></div><p>If you open the URL again the pod should be started again and application will
+handle the traffic - this takes about 3 seconds.</p> <p>You can try to open the web browser with the URL <a href="https://my-podinfo.default.mylabs.dev" target="_blank" rel="noopener noreferrer">https://my-podinfo.default.mylabs.dev<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+again and test it.</p> <p><img src="/k8s-knative-gitlab-harbor/assets/img/podinfo.d8c508a4.png" alt="podinfo" title="podinfo"></p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-knative-gitlab-harbor/edit/master/docs/part-07/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:11:02 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-knative-gitlab-harbor/part-06/" class="prev">
+        Install Knative
+      </a></span> <span class="next"><a href="/k8s-knative-gitlab-harbor/part-08/">
+        Automated deployment with Tekton
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-knative-gitlab-harbor/assets/js/app.e9f46d57.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/2.99da59a7.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/1.416be298.js" defer></script><script src="/k8s-knative-gitlab-harbor/assets/js/27.2df1edf6.js" defer></script>
+  </body>
+</html>
